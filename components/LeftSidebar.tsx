@@ -23,23 +23,23 @@ const LeftSidebar = () => {
           </h1>
         </Link>
 
-        {sidebarLinks.map(({ route, label, imgURL }) => {
+        {sidebarLinks.map(({ route, label, icon }) => {
           const isActive =
             pathname === route || pathname.startsWith(`${route}/`);
-
+          const Icon = icon;
           return (
             <Link
               href={route}
               key={label}
               className={cn(
-                "flex items-center justify-center gap-3 py-4 max-lg:px-4 lg:justify-start",
+                "flex items-center justify-center gap-3 py-4 opacity-90 max-lg:px-4 lg:justify-start",
                 {
-                  "rounded-[4px] border-r-4 border-orange-1 bg-nav-focus":
+                  "rounded-[4px] border-r-4 border-orange-1 bg-nav-focus font-semibold opacity-100":
                     isActive,
                 },
               )}
             >
-              <Image src={imgURL} alt={label} width={24} height={24} />
+              <Icon isActive={isActive} width={24} height={24} />
               <p>{label}</p>
             </Link>
           );
