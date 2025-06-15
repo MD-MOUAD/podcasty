@@ -4,60 +4,60 @@ import { uploadMedia } from "@/lib/cloudinary";
 import { connectToDatabase } from "@/lib/db";
 import Podcast from "@/lib/models/Podcast";
 import User from "@/lib/models/User";
-import { generateAudio } from "./generateAudio";
 import { auth } from "@clerk/nextjs/server";
 
 export const createPodcast = async (
-  prevState: { success: boolean; podcastId?: string; error?: string },
-  formData: FormData
-) => {
-  const { userId: clerkId } = await auth();
-  if (!clerkId) throw new Error("Unauthorized");
-  console.log(clerkId);
-
-  const title = formData.get("title") as string;
-  const content = formData.get("content") as string;
-
-  if (!title || !content) {
-    return { success: false, error: "Missing required fields" };
-  }
-
+  title: string,
+  description: string,
+  content: string,
+  audioBase64: string
+): Promise<{ success: boolean; podcastId?: string; error?: string }> => {
   try {
-    // Connect to database
+    const { userId: clerkId } = await auth();
+    if (!clerkId) {
+      return { success: false, error: "Unauthorized" };
+    }
+
+    if (!title || !description || !content || !audioBase64) {
+      return { success: false, error: "Missing required fields" };
+    }
+
     await connectToDatabase();
 
-    // Get user from database
     const user = await User.findOne({ clerkId });
-    if (!user) throw new Error("User not found");
+    if (!user) {
+      return { success: false, error: "User not found" };
+    }
 
-    // Generate media in parallel
-    const audioArrayBuffer = await generateAudio(content);
+    // Convert Base64 to Buffer
+    const buffer = Buffer.from(audioBase64.split(",")[1], "base64");
 
-    // Convert audio ArrayBuffer to Buffer
-    const audioBuffer = Buffer.from(audioArrayBuffer);
+    const uploadedAudioUrl = await uploadMedia(buffer, "podcast-audio");
 
-    // Upload media to Cloudinary
-    const uploadedAudioUrl = await uploadMedia(audioBuffer, "podcast-audio");
+    if (!uploadedAudioUrl) {
+      return { success: false, error: "Failed to upload audio" };
+    }
 
-    // Create new podcast
     const podcast = new Podcast({
       title,
+      description,
       content,
-      imageUrl: "not included",
+      imageUrl: "default-podcast-image.jpg",
       audioUrl: uploadedAudioUrl,
       userId: user._id,
     });
 
-    // Save podcast
     await podcast.save();
-
-    // Add podcast to user's podcasts array
     user.podcasts.push(podcast._id);
     await user.save();
 
     return { success: true, podcastId: podcast._id.toString() };
   } catch (error) {
     console.error("Podcast creation failed:", error);
-    return { success: false, error: "Failed to create podcast" };
+    return {
+      success: false,
+      error:
+        error instanceof Error ? error.message : "Failed to create podcast",
+    };
   }
 };

@@ -18,10 +18,14 @@ export const generateAudio = async (text: string) => {
             similarity_boost: 0.5,
           },
         }),
-      },
+      }
     );
 
-    return await response.arrayBuffer();
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.blob();
   } catch (error) {
     console.error("Audio generation failed:", error);
     throw new Error("Failed to generate audio");

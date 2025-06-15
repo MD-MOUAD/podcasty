@@ -2,10 +2,11 @@ import mongoose, { Schema } from "mongoose";
 
 const PodcastSchema = new Schema({
   title: { type: String, required: true },
+  description: { type: String, required: true },
   content: { type: String, required: true },
   imageUrl: { type: String, required: true },
   audioUrl: { type: String, required: true },
-  userId: { type: Schema.Types.ObjectId, ref: "User", required: true }, // Reference to User
+  userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
   createdAt: { type: Date, default: Date.now },
 });
 

@@ -13,20 +13,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { Loader } from "lucide-react";
-
-const voiceCategories = ["alloy", "shimmer", "nova", "echo", "fable", "onyx"];
+import GeneratePodcastPreview from "@/components/GeneratePodcastPreview";
+import VoiceActorSelector from "@/components/VoiceActorSelector";
+import voiceData from "@/data/voices.json";
+import { createPodcast } from "@/lib/actions/createPodcast";
+import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
   podcastTitle: z
@@ -41,12 +35,15 @@ const formSchema = z.object({
 });
 
 const CreatePodcast = () => {
-  // Voice States
-  const [voiceType, setVoiceType] = useState<string | null>(null);
-
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedVoiceId, setSelectedVoiceId] = useState<string>(
+    voiceData[0]?.voice_id || ""
+  );
+  const [podcastContent, setPodcastContent] = useState("");
+  const [previewUrl, setPreviewUrl] = useState("");
+  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
+  const { toast } = useToast();
 
-  // Define the form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -56,9 +53,58 @@ const CreatePodcast = () => {
   });
 
   async function onSubmit(data: z.infer<typeof formSchema>) {
-    setIsSubmitting(true);
-    console.log(data);
-    await Promise.resolve(() => setTimeout(() => setIsSubmitting(true), 2000));
+    if (!audioBlob) {
+      toast({
+        title: "Error",
+        description: "Please generate an audio preview first",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+
+      // Convert Blob to Base64 string
+      const audioBase64 = await new Promise<string>((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(audioBlob);
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = () => reject(reader.error);
+      });
+
+      const result = await createPodcast(
+        data.podcastTitle,
+        data.podcastDescription,
+        podcastContent,
+        audioBase64
+      );
+
+      if (result.success) {
+        toast({
+          title: "Success",
+          description: "Podcast created successfully!",
+        });
+        form.reset();
+        setPreviewUrl("");
+        setAudioBlob(null);
+      } else {
+        toast({
+          title: "Error",
+          description: result.error || "Failed to create podcast",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      toast({
+        title: "Error",
+        description: "An unexpected error occurred",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -90,43 +136,11 @@ const CreatePodcast = () => {
                 </FormItem>
               )}
             />
-
-            <div className="flex flex-col gap-2.5">
-              <Label className="text-16 font-bold text-white-1">
-                Select AI Voice
-              </Label>
-
-              <Select onValueChange={(value) => setVoiceType(value)}>
-                <SelectTrigger
-                  className={cn(
-                    "text-16 w-full border-none bg-black-1 text-gray-1 focus-visible:ring-offset-orange-1",
-                  )}
-                >
-                  <SelectValue
-                    placeholder="Select AI Voice"
-                    className="placeholder:text-gray-1"
-                  />
-                </SelectTrigger>
-                <SelectContent className="text-16 border-none bg-black-1 font-bold text-white-1 focus:ring-orange-1">
-                  {voiceCategories.map((category) => (
-                    <SelectItem
-                      key={category}
-                      value={category}
-                      className="capitalize focus:bg-orange-1"
-                    >
-                      {category}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-                {voiceType && (
-                  <audio
-                    src={`/${voiceType}.mp3`}
-                    autoPlay
-                    className="hidden"
-                  />
-                )}
-              </Select>
-            </div>
+            <VoiceActorSelector
+              voices={voiceData}
+              selectedVoiceId={selectedVoiceId}
+              setSelectedVoiceId={setSelectedVoiceId}
+            />
 
             <FormField
               control={form.control}
@@ -149,10 +163,17 @@ const CreatePodcast = () => {
             />
           </div>
           <div className="flex flex-col pt-10">
-            <div className="mt-10 w-full">
+            <GeneratePodcastPreview
+              voiceId={selectedVoiceId}
+              setPodcastContent={setPodcastContent}
+              previewUrl={previewUrl}
+              setPreviewUrl={setPreviewUrl}
+              setAudioBlob={setAudioBlob}
+            />
+            <div className="mt-10 w-1/2">
               <Button
                 type="submit"
-                className="text-16 w-full bg-orange-1 py-4 font-extrabold text-white-1 transition-all duration-500 hover:bg-black-1"
+                className="text-16 w-full bg-orange-1 py-6 font-extrabold text-white-1 transition-all duration-500"
               >
                 {isSubmitting ? (
                   <>

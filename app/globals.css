@@ -70,6 +70,9 @@ html {
 }
 
 @layer utilities {
+  .card-class {
+    @apply text-16 rounded-[6px] border-none bg-black-2 text-white-1  !important;
+  }
   .input-class {
     @apply text-16 placeholder:text-16 rounded-[6px] border-none bg-black-1 text-white-1 ring-0 placeholder:text-gray-1 !important;
   }
