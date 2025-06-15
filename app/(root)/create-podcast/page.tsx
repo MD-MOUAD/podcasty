@@ -19,7 +19,7 @@ import { Loader } from "lucide-react";
 import GeneratePodcastPreview from "@/components/GeneratePodcastPreview";
 import VoiceActorSelector from "@/components/VoiceActorSelector";
 import voiceData from "@/data/voices.json";
-import { createPodcast } from "@/lib/actions/createPodcast";
+import { createPodcast } from "@/lib/actions/podcast.actions";
 import { useToast } from "@/hooks/use-toast";
 import GeneratePodcastThumbnail from "@/components/GeneratePodcastThumbnail";
 import { useRouter } from "next/navigation";

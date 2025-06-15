@@ -1,3 +1,4 @@
+import { IPodcast } from "@/lib/models/Podcast";
 import { Dispatch, SetStateAction } from "react";
 
 export interface VoiceActor {
@@ -29,4 +30,16 @@ export interface GeneratePodcastPreviewProps {
 
 export interface GenerateThumbnailProps {
   setImage: Dispatch<SetStateAction<Blob | null>>;
+}
+
+export interface EmptyStateProps {
+  title: string;
+  search?: boolean;
+  buttonText?: string;
+  buttonLink?: string;
+}
+
+export interface PodcastDetailPlayerProps {
+  podcast: IPodcast;
+  isOwner: boolean;
 }

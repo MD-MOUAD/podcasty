@@ -2,9 +2,10 @@
 
 import { uploadMedia } from "@/lib/cloudinary";
 import { connectToDatabase } from "@/lib/db";
-import Podcast from "@/lib/models/Podcast";
+import Podcast, { IPodcast } from "@/lib/models/Podcast";
 import User from "@/lib/models/User";
 import { auth } from "@clerk/nextjs/server";
+import { Types } from "mongoose";
 import { revalidatePath } from "next/cache";
 
 export const createPodcast = async (
@@ -50,6 +51,7 @@ export const createPodcast = async (
       imageUrl: uploadedImageUrl,
       audioUrl: uploadedAudioUrl,
       userId: user._id,
+      authorClerkId: user.clerkId,
     });
 
     await podcast.save();
@@ -68,3 +70,41 @@ export const createPodcast = async (
     };
   }
 };
+
+export const getTrendingPodcasts = async (): Promise<IPodcast[]> => {
+  try {
+    await connectToDatabase();
+    const podcasts = await Podcast.find().sort({ createdAt: -1 });
+    return podcasts;
+  } catch (error) {
+    console.error("Error fetching podcasts:", error);
+    return [];
+  }
+};
+
+export const getPodcastById = async (
+  podcastId: string
+): Promise<IPodcast | null> => {
+  try {
+    await connectToDatabase();
+
+    if (!Types.ObjectId.isValid(podcastId)) {
+      throw new Error("Invalid podcast ID");
+    }
+    const podcast = await Podcast.findById(podcastId).populate("userId");
+
+    return podcast;
+  } catch (error) {
+    console.error("Error fetching podcast by ID:", error);
+    return null;
+  }
+};
+
+export async function incrementPodcastViews(podcastId: string) {
+  await connectToDatabase();
+  await Podcast.findByIdAndUpdate(
+    podcastId,
+    { $inc: { views: 1 } },
+    { new: true }
+  );
+}

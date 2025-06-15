@@ -1,5 +1,5 @@
 import PodcastCard from "@/components/PodcastCard";
-import { getTrendingPodcasts } from "@/lib/actions/getTrendingPodcasts";
+import { getTrendingPodcasts } from "@/lib/actions/podcast.actions";
 
 const Home = async () => {
   const trendingPodcasts = await getTrendingPodcasts();

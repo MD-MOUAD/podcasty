@@ -19,10 +19,11 @@ const ClerkProvider = ({ children }: { children: ReactNode }) => (
       },
       variables: {
         colorBackground: "#15171c",
-        colorPrimary: "",
+        colorPrimary: "#F97535",
         colorText: "white",
         colorInputBackground: "#1b1f29",
         colorInputText: "white",
+        colorNeutral: "#fb923c",
       },
     }}
   >

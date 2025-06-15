@@ -1,4 +1,5 @@
 "use client";
+import { incrementPodcastViews } from "@/lib/actions/podcast.actions";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -17,8 +18,8 @@ const PodcastCard = ({
 }: PodcastCardProps) => {
   const router = useRouter();
 
-  const handleViews = () => {
-    // TODO: increase views
+  const handleViews = async () => {
+    await incrementPodcastViews(podcastId);
 
     router.push(`/podcasts/${podcastId}`, {
       scroll: true,

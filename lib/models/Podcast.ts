@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { Types } from "mongoose";
+import { IUser } from "./User";
 
 export interface IPodcast {
   _id: Types.ObjectId;
@@ -8,7 +9,9 @@ export interface IPodcast {
   content: string;
   imageUrl: string;
   audioUrl: string;
-  userId: Types.ObjectId;
+  authorClerkId: string;
+  views: number;
+  userId: Types.ObjectId | IUser;
   createdAt: Date;
 }
 
@@ -18,6 +21,8 @@ const PodcastSchema = new Schema({
   content: { type: String, required: true },
   imageUrl: { type: String, required: true },
   audioUrl: { type: String, required: true },
+  authorClerkId: { type: String, required: true },
+  views: { type: Number, default: 0 },
   userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
   createdAt: { type: Date, default: Date.now },
 });
