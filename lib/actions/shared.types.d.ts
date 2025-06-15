@@ -20,3 +20,16 @@ export interface UpdateUserParams {
 export interface DeleteUserParams {
   clerkId: string;
 }
+
+interface TopPodcaster {
+  clerkId: string;
+  name: string;
+  picture?: string;
+  podcastCount: number;
+  latestPodcast?: {
+    _id: string;
+    title: string;
+    imageUrl: string;
+    createdAt: string;
+  };
+}

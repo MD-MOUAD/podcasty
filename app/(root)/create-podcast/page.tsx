@@ -114,6 +114,7 @@ const CreatePodcast = () => {
         podcastContent,
         audioBase64,
         imageBase64,
+        selectedVoiceId,
         "/"
       );
 

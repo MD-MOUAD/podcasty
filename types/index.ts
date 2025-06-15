@@ -1,3 +1,4 @@
+import { TopPodcaster } from "@/lib/actions/shared.types";
 import { IPodcast } from "@/lib/models/Podcast";
 import { Dispatch, SetStateAction } from "react";
 
@@ -42,4 +43,8 @@ export interface EmptyStateProps {
 export interface PodcastDetailPlayerProps {
   podcast: IPodcast;
   isOwner: boolean;
+}
+
+export interface CarouselProps {
+  fansLikeDetail: TopPodcaster[];
 }

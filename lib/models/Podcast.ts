@@ -12,6 +12,7 @@ export interface IPodcast {
   authorClerkId: string;
   views: number;
   userId: Types.ObjectId | IUser;
+  voiceId: string;
   createdAt: Date;
 }
 
@@ -24,6 +25,7 @@ const PodcastSchema = new Schema({
   authorClerkId: { type: String, required: true },
   views: { type: Number, default: 0 },
   userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  voiceId: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
 });
 

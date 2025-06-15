@@ -7,6 +7,7 @@ import {
   CreateUserParams,
   DeleteUserParams,
   GetUserByIdParams,
+  TopPodcaster,
   UpdateUserParams,
 } from "@/lib/actions/shared.types";
 
@@ -66,5 +67,55 @@ export async function deleteUser(params: DeleteUserParams) {
   } catch (error) {
     console.log(error);
     throw error;
+  }
+}
+
+export async function getTopPodcasters(limit: number): Promise<TopPodcaster[]> {
+  try {
+    await connectToDatabase();
+
+    const result = await User.aggregate([
+      {
+        $lookup: {
+          from: "podcasts",
+          localField: "_id",
+          foreignField: "userId",
+          as: "podcasts",
+        },
+      },
+      {
+        $addFields: {
+          podcastCount: { $size: "$podcasts" },
+        },
+      },
+      { $match: { podcastCount: { $gt: 0 } } },
+      { $sort: { podcastCount: -1, name: 1 } },
+      { $limit: limit },
+      {
+        $project: {
+          _id: 0,
+          clerkId: 1,
+          name: 1,
+          picture: 1,
+          podcastCount: 1,
+          latestPodcast: {
+            $let: {
+              vars: { firstPod: { $arrayElemAt: ["$podcasts", 0] } },
+              in: {
+                _id: { $toString: "$$firstPod._id" },
+                title: "$$firstPod.title",
+                imageUrl: "$$firstPod.imageUrl",
+                createdAt: { $toString: "$$firstPod.createdAt" },
+              },
+            },
+          },
+        },
+      },
+    ]).exec(); // .exec() returns a proper Promise
+
+    return JSON.parse(JSON.stringify(result));
+  } catch (error) {
+    console.error("[GET_TOP_PODCASTERS]", error);
+    throw new Error("Failed to fetch top podcasters");
   }
 }
