@@ -4,7 +4,7 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    remotePatterns: [],
+    domains: ["res.cloudinary.com"],
   },
 };
 

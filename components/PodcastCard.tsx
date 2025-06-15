@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -6,7 +7,7 @@ interface PodcastCardProps {
   imgUrl: string;
   title: string;
   description: string;
-  podcastId: number;
+  podcastId: string;
 }
 const PodcastCard = ({
   imgUrl,
@@ -32,7 +33,7 @@ const PodcastCard = ({
           width={174}
           height={174}
           alt={title}
-          className="aspect-square h-fit w-full rounded-xl 2xl:size-[200px]"
+          className="aspect-square h-fit w-full rounded-xl 2xl:size-[200px] object-cover object-center"
         />
         <div className="flex flex-col">
           <h1 className="text-16 truncate font-bold text-white-1">{title}</h1>

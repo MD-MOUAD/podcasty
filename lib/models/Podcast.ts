@@ -1,4 +1,16 @@
 import mongoose, { Schema } from "mongoose";
+import { Types } from "mongoose";
+
+export interface IPodcast {
+  _id: Types.ObjectId;
+  title: string;
+  description: string;
+  content: string;
+  imageUrl: string;
+  audioUrl: string;
+  userId: Types.ObjectId;
+  createdAt: Date;
+}
 
 const PodcastSchema = new Schema({
   title: { type: String, required: true },

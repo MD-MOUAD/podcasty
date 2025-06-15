@@ -21,6 +21,8 @@ import VoiceActorSelector from "@/components/VoiceActorSelector";
 import voiceData from "@/data/voices.json";
 import { createPodcast } from "@/lib/actions/createPodcast";
 import { useToast } from "@/hooks/use-toast";
+import GeneratePodcastThumbnail from "@/components/GeneratePodcastThumbnail";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   podcastTitle: z
@@ -42,7 +44,11 @@ const CreatePodcast = () => {
   const [podcastContent, setPodcastContent] = useState("");
   const [previewUrl, setPreviewUrl] = useState("");
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
+
+  const [imageBlob, setImageBlob] = useState<Blob | null>(null);
+
   const { toast } = useToast();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -52,32 +58,63 @@ const CreatePodcast = () => {
     },
   });
 
-  async function onSubmit(data: z.infer<typeof formSchema>) {
+  const convertBlobToBase64 = (blob: Blob): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = () => reject(reader.error);
+    });
+  };
+
+  const resetForm = () => {
+    form.reset();
+    setPreviewUrl("");
+    setAudioBlob(null);
+    setImageBlob(null);
+    setPodcastContent("");
+  };
+
+  const validateRequiredFields = () => {
     if (!audioBlob) {
       toast({
         title: "Error",
         description: "Please generate an audio preview first",
         variant: "destructive",
       });
-      return;
+      return false;
     }
+
+    if (!imageBlob) {
+      toast({
+        title: "Error",
+        description: "Please provide a thumbnail for the podcast",
+        variant: "destructive",
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    if (!validateRequiredFields()) return;
 
     try {
       setIsSubmitting(true);
 
-      // Convert Blob to Base64 string
-      const audioBase64 = await new Promise<string>((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(audioBlob);
-        reader.onload = () => resolve(reader.result as string);
-        reader.onerror = () => reject(reader.error);
-      });
+      const [audioBase64, imageBase64] = await Promise.all([
+        convertBlobToBase64(audioBlob!),
+        convertBlobToBase64(imageBlob!),
+      ]);
 
       const result = await createPodcast(
         data.podcastTitle,
         data.podcastDescription,
         podcastContent,
-        audioBase64
+        audioBase64,
+        imageBase64,
+        "/"
       );
 
       if (result.success) {
@@ -85,9 +122,8 @@ const CreatePodcast = () => {
           title: "Success",
           description: "Podcast created successfully!",
         });
-        form.reset();
-        setPreviewUrl("");
-        setAudioBlob(null);
+        resetForm();
+        router.push("/");
       } else {
         toast({
           title: "Error",
@@ -170,7 +206,9 @@ const CreatePodcast = () => {
               setPreviewUrl={setPreviewUrl}
               setAudioBlob={setAudioBlob}
             />
-            <div className="mt-10 w-1/2">
+            <GeneratePodcastThumbnail setImage={setImageBlob} />
+
+            <div className="mt-10 w-11/12 mx-auto">
               <Button
                 type="submit"
                 className="text-16 w-full bg-orange-1 py-6 font-extrabold text-white-1 transition-all duration-500"

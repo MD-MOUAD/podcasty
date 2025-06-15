@@ -158,7 +158,7 @@ const GeneratePodcastPreview = ({
               isValid && !hasGenerated
                 ? "bg-orange-1 hover:bg-orange-600"
                 : "bg-gray-500 cursor-not-allowed"
-            } ${hasGenerated && "bg-emerald-600 cursor-not-allowed"}`}
+            }`}
           onClick={generatePreview}
           disabled={!isValid || isGenerating || hasGenerated}
           aria-label={
@@ -174,8 +174,6 @@ const GeneratePodcastPreview = ({
               Generating
               <Loader size={20} className="animate-spin ml-2" />
             </>
-          ) : hasGenerated ? (
-            "Generated ✓"
           ) : (
             "Generate Podcast ✨"
           )}
