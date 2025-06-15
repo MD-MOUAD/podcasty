@@ -1,6 +1,3 @@
-import React, { useCallback } from "react";
-import { EmblaOptionsType, EmblaCarouselType } from "embla-carousel";
-import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { CarouselProps } from "@/types";
@@ -8,32 +5,21 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import LoaderSpinner from "./LoaderSpinner";
 import { TopPodcaster } from "@/lib/actions/shared.types";
+import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
 
 const Carousel = ({ fansLikeDetail }: CarouselProps) => {
   const router = useRouter();
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
+    Autoplay({ delay: 3000, stopOnInteraction: false }),
+  ]);
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay()]);
+  // Simplified dot button interaction
+  const { selectedIndex, scrollSnaps, onDotButtonClick } =
+    useDotButton(emblaApi);
 
-  const onNavButtonClick = useCallback((emblaApi: EmblaCarouselType) => {
-    const autoplay = emblaApi?.plugins()?.autoplay;
-    if (!autoplay || !("stopOnInteraction" in autoplay.options)) return;
-
-    const resetOrStop =
-      autoplay.options.stopOnInteraction === false
-        ? (autoplay.reset as () => void)
-        : (autoplay.stop as () => void);
-
-    resetOrStop();
-  }, []);
-
-  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(
-    emblaApi,
-    onNavButtonClick
+  const slides = fansLikeDetail?.filter(
+    (item: TopPodcaster) => item.podcastCount > 0
   );
-
-  const slides =
-    fansLikeDetail &&
-    fansLikeDetail?.filter((item: TopPodcaster) => item.podcastCount > 0);
 
   if (!slides) return <LoaderSpinner />;
 
@@ -46,14 +32,14 @@ const Carousel = ({ fansLikeDetail }: CarouselProps) => {
         {slides.slice(0, 5).map((item) => (
           <figure
             key={item.clerkId}
-            className="carousel_box"
+            className="carousel_box flex-[0_0_100%] min-w-0" // Important for slide sizing
             onClick={() => router.push(`/podcasts/${item.latestPodcast?._id}`)}
           >
             <Image
               src={item.picture as string}
               alt="card"
               fill
-              className="absolute size-full rounded-xl border-none"
+              className="absolute size-full rounded-xl border-none object-cover"
             />
             <div className="glassmorphism-black relative z-10 flex flex-col rounded-b-xl p-4">
               <h2 className="text-14 font-semibold text-white-1">

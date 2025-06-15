@@ -1,9 +1,4 @@
-import React, {
-  PropsWithChildren,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { useCallback, useEffect, useState } from "react";
 import { EmblaCarouselType } from "embla-carousel";
 import { cn } from "@/lib/utils";
 
@@ -14,8 +9,7 @@ type UseDotButtonType = {
 };
 
 export const useDotButton = (
-  emblaApi: EmblaCarouselType | undefined,
-  onButtonClick?: (emblaApi: EmblaCarouselType) => void
+  emblaApi: EmblaCarouselType | undefined
 ): UseDotButtonType => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
@@ -24,9 +18,8 @@ export const useDotButton = (
     (index: number) => {
       if (!emblaApi) return;
       emblaApi.scrollTo(index);
-      if (onButtonClick) onButtonClick(emblaApi);
     },
-    [emblaApi, onButtonClick]
+    [emblaApi]
   );
 
   const onInit = useCallback((emblaApi: EmblaCarouselType) => {
@@ -43,6 +36,13 @@ export const useDotButton = (
     onInit(emblaApi);
     onSelect(emblaApi);
     emblaApi.on("reInit", onInit).on("reInit", onSelect).on("select", onSelect);
+
+    return () => {
+      emblaApi
+        .off("reInit", onInit)
+        .off("reInit", onSelect)
+        .off("select", onSelect);
+    };
   }, [emblaApi, onInit, onSelect]);
 
   return {
@@ -51,7 +51,6 @@ export const useDotButton = (
     onDotButtonClick,
   };
 };
-
 type DotButtonProps = {
   selected: boolean;
   onClick: () => void;
