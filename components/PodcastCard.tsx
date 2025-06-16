@@ -9,12 +9,14 @@ interface PodcastCardProps {
   title: string;
   description: string;
   podcastId: string;
+  insideFlexContainer?: boolean;
 }
 const PodcastCard = ({
   imgUrl,
   title,
   description,
   podcastId,
+  insideFlexContainer = false,
 }: PodcastCardProps) => {
   const router = useRouter();
 
@@ -27,7 +29,13 @@ const PodcastCard = ({
   };
 
   return (
-    <div className="cursor-pointer" onClick={handleViews}>
+    <div
+      className={`cursor-pointer ${
+        insideFlexContainer &&
+        "max-w-[140px] md:max-w-[160px] lg:max-w-[180px] xl:max-w-[190px] 2xl:max-w-[200px]"
+      }`}
+      onClick={handleViews}
+    >
       <figure className="flex flex-col gap-2">
         <Image
           src={imgUrl}

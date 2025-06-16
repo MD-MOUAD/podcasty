@@ -73,11 +73,21 @@ export const createPodcast = async (
   }
 };
 
-export const getTrendingPodcasts = async (): Promise<IPodcast[]> => {
+export const getTrendingPodcasts = async (
+  limit: number = 12
+): Promise<IPodcast[]> => {
   try {
     await connectToDatabase();
-    const podcasts = await Podcast.find().sort({ createdAt: -1 });
-    return podcasts;
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+    const trendingPodcasts = await Podcast.find({
+      createdAt: { $gte: oneWeekAgo },
+    })
+      .sort({ views: -1 })
+      .limit(limit);
+
+    return trendingPodcasts;
   } catch (error) {
     console.error("Error fetching podcasts:", error);
     return [];

@@ -139,7 +139,7 @@ const PodcastPlayer = () => {
         <div className="flex items-center gap-4 max-md:hidden">
           <Link href={`/podcast/${audio?.podcastId}`}>
             <Image
-              src={audio?.imageUrl || "/images/player1.png"}
+              src={audio?.imageUrl || "/images/default-podcast-thumbnail.png"}
               width={64}
               height={64}
               alt="Podcast cover"

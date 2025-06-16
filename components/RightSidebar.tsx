@@ -68,6 +68,7 @@ const RightSidebar = () => {
                 <Image
                   src={podcaster.picture as string}
                   alt={podcaster.name}
+                  priority
                   width={44}
                   height={44}
                   className="aspect-square rounded-lg"

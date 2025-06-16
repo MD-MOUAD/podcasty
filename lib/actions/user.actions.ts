@@ -100,7 +100,7 @@ export async function getTopPodcasters(limit: number): Promise<TopPodcaster[]> {
           podcastCount: 1,
           latestPodcast: {
             $let: {
-              vars: { firstPod: { $arrayElemAt: ["$podcasts", 0] } },
+              vars: { firstPod: { $arrayElemAt: ["$podcasts", -1] } },
               in: {
                 _id: { $toString: "$$firstPod._id" },
                 title: "$$firstPod.title",
