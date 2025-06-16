@@ -1,12 +1,9 @@
 import EmptyState from "@/components/EmptyState";
-import LoaderSpinner from "@/components/LoaderSpinner";
 import PodcastDetailPlayer from "@/components/PodcastDetailPlayer";
 import { getPodcastById } from "@/lib/actions/podcast.actions";
-import { delay } from "@/lib/utils";
 import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
-import { notFound, redirect } from "next/navigation";
-import { Suspense } from "react";
+import { notFound } from "next/navigation";
 
 const PodcastDetails = async ({
   params,
@@ -19,6 +16,7 @@ const PodcastDetails = async ({
   try {
     podcast = await getPodcastById(params.podcastId);
   } catch (error) {
+    console.log(error);
     notFound();
   }
   if (!podcast) notFound();

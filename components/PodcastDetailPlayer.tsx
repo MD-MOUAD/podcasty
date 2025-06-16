@@ -13,14 +13,14 @@ const PodcastDetailPlayer = ({
   podcast,
   isOwner,
 }: PodcastDetailPlayerProps) => {
-  const author = podcast.userId as IUser;
-  if (!podcast?.imageUrl || !author?.picture) return <LoaderSpinner />;
-
   const router = useRouter();
   const { toast } = useToast();
   const { setAudio } = useAudio();
-
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const author = podcast.userId as IUser;
+
+  if (!podcast?.imageUrl || !author?.picture) return <LoaderSpinner />;
 
   const handlePlay = () => {
     setAudio({
