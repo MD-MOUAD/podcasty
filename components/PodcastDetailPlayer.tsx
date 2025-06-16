@@ -1,12 +1,13 @@
 "use client";
 import { IUser } from "@/lib/models/User";
 import { PodcastDetailPlayerProps } from "@/types";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import LoaderSpinner from "./LoaderSpinner";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
+import { useAudio } from "@/providers/AudioProvider";
 
 const PodcastDetailPlayer = ({
   podcast,
@@ -17,18 +18,19 @@ const PodcastDetailPlayer = ({
 
   const router = useRouter();
   const { toast } = useToast();
+  const { setAudio } = useAudio();
+
   const [isDeleting, setIsDeleting] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
+
   const handlePlay = () => {
-    if (audioRef.current) {
-      audioRef.current.play().catch((err) => {
-        console.error("Audio play error:", err);
-        toast({
-          title: "Unable to play audio",
-          variant: "destructive",
-        });
-      });
-    }
+    setAudio({
+      title: podcast.title,
+      audioUrl: podcast.audioUrl,
+      imageUrl: podcast.imageUrl,
+      authorClerkId: podcast.authorClerkId,
+      podcastId: podcast._id?.toString(),
+      author: author.name,
+    });
   };
   const handleDelete = async () => {
     try {
@@ -91,8 +93,6 @@ const PodcastDetailPlayer = ({
             />{" "}
             &nbsp; Play podcast
           </Button>
-          {/* Hidden audio tag */}
-          <audio ref={audioRef} src={podcast.audioUrl} preload="auto" />
         </div>
       </div>
       {isOwner && (

@@ -15,8 +15,6 @@ const PodcastDetails = async ({
 }) => {
   const { userId } = await auth();
 
-  if (!userId) redirect("/sign-in");
-
   let podcast;
   try {
     podcast = await getPodcastById(params.podcastId);
@@ -54,7 +52,11 @@ const PodcastDetails = async ({
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <h1 className="text-18 font-bold text-white-1">Transcription</h1>
-          <p className="text-16 font-medium text-white-2">{podcast?.content}</p>
+          {podcast?.content?.split("\n").map((line, idx) => (
+            <p className="text-16 font-medium text-white-2" key={idx}>
+              {line}
+            </p>
+          ))}
         </div>
       </div>
       <section className="mt-8 flex flex-col gap-5">

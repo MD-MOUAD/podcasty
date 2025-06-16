@@ -10,6 +10,7 @@ import { getTopPodcasters } from "@/lib/actions/user.actions";
 import Header from "./Header";
 import { TopPodcaster } from "@/lib/actions/shared.types";
 import Carousel from "./Carousel";
+import { useAudio } from "@/providers/AudioProvider";
 
 const RightSidebar = () => {
   const { user } = useUser();
@@ -25,12 +26,12 @@ const RightSidebar = () => {
     loadTopPodcasters();
   }, []);
 
-  // const { audio } = useAudio();
+  const { audio } = useAudio();
 
   return (
     <section
-      className={cn("right_sidebar h-[calc(100vh-5px)]", {
-        // "h-[calc(100vh-140px)]": audio?.audioUrl,
+      className={cn("right_sidebar no-scrollbar h-[calc(100vh-5px)]", {
+        "h-[calc(100vh-120px)]": audio?.audioUrl,
       })}
     >
       <SignedIn>

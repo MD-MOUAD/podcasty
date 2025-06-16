@@ -8,14 +8,21 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import { Button } from "./ui/button";
+import { useAudio } from "@/providers/AudioProvider";
 
 const LeftSidebar = () => {
   const pathname = usePathname();
   const router = useRouter();
   const { signOut } = useClerk();
 
+  const { audio } = useAudio();
+
   return (
-    <section className="left_sidebar h-[calc(100vh-5px)]">
+    <section
+      className={cn("left_sidebar h-[calc(100vh-5px)]", {
+        "h-[calc(100vh-120px)]": audio?.audioUrl,
+      })}
+    >
       <nav className="flex flex-col gap-6">
         <Link
           href="/"
@@ -57,7 +64,7 @@ const LeftSidebar = () => {
         </div>
       </SignedOut>
       <SignedIn>
-        <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
+        <div className="flex-center w-full pb-8 max-lg:px-4 lg:pr-8">
           <Button
             className="text-16 w-full bg-orange-1 font-extrabold"
             onClick={() => signOut(() => router.push("/"))}
