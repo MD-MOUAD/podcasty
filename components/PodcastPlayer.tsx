@@ -11,7 +11,7 @@ const PodcastPlayer = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(1); // Initialize with 1 to avoid 0 value
   const [isMuted, setIsMuted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [isSeeking, setIsSeeking] = useState(false);
@@ -87,12 +87,32 @@ const PodcastPlayer = () => {
     const audioElement = audioRef.current;
     if (audio?.audioUrl && audioElement) {
       audioElement.load();
+      const handleLoadedMetadata = () => {
+        setDuration(audioElement.duration || 1); // Ensure duration is never 0
+      };
+      audioElement.addEventListener("loadedmetadata", handleLoadedMetadata);
       audioElement.play().then(() => setIsPlaying(true));
+
+      return () => {
+        audioElement.removeEventListener(
+          "loadedmetadata",
+          handleLoadedMetadata
+        );
+      };
     } else {
       audioElement?.pause();
       setIsPlaying(false);
     }
   }, [audio]);
+
+  // Fixed width for time display to prevent layout shift
+  const timeDisplay = (
+    <div className="flex items-center gap-2 text-12 md:text-16 font-normal text-white-2 w-[80px] md:w-[120px] text-right">
+      <span className="tabular-nums">{formatTime(currentTime)}</span>
+      <span>/</span>
+      <span className="tabular-nums">{formatTime(duration)}</span>
+    </div>
+  );
 
   return (
     <div
@@ -116,38 +136,33 @@ const PodcastPlayer = () => {
         <Progress
           value={(currentTime / duration) * 100 || 0}
           className="h-1.5 w-full rounded-none transition-all group-hover:h-2"
-          max={duration}
-        />
-        <div
-          className="absolute left-0 top-0 h-full bg-primary-500"
-          style={{ width: `${(currentTime / duration) * 100 || 0}%` }}
+          max={100} // Changed to fixed 100 to match percentage-based progress
         />
       </div>
 
-      <section className="glassmorphism-black flex h-[112px] w-full items-center justify-between px-4 max-md:justify-center max-md:gap-5 md:px-12">
+      <section className="glassmorphism-black flex h-[90px] md:h-[112px] w-full items-center justify-between px-4 md:px-12 gap-4">
         <audio
           ref={audioRef}
           src={audio?.audioUrl}
           className="hidden"
-          onLoadedMetadata={() => {
-            if (audioRef.current) setDuration(audioRef.current.duration);
-          }}
           onEnded={() => setIsPlaying(false)}
         />
 
-        {/* Podcast Info */}
-        <div className="flex items-center gap-4 max-md:hidden">
-          <Link href={`/podcast/${audio?.podcastId}`}>
-            <Image
-              src={audio?.imageUrl || "/images/default-podcast-thumbnail.png"}
-              width={64}
-              height={64}
-              alt="Podcast cover"
-              className="aspect-square rounded-xl object-cover"
-              priority
-            />
-          </Link>
-          <div className="flex min-w-0 flex-col">
+        {/* Podcast Info - Hidden on mobile */}
+        <Link
+          href={`/podcasts/${audio?.podcastId}`}
+          className="flex items-center gap-4"
+        >
+          <Image
+            src={audio?.imageUrl || "/images/default-podcast-thumbnail.png"}
+            width={64}
+            height={64}
+            alt="Podcast cover"
+            className="aspect-square rounded-xl object-cover max-md:w-12 max-md:h-12"
+            priority
+          />
+
+          <div className="flex min-w-0 flex-col max-md:hidden">
             <h2 className="truncate text-14 font-semibold text-white-1">
               {audio?.title || "No podcast selected"}
             </h2>
@@ -155,10 +170,10 @@ const PodcastPlayer = () => {
               {audio?.author || "Unknown author"}
             </p>
           </div>
-        </div>
+        </Link>
 
         {/* Controls */}
-        <div className="flex-center cursor-pointer gap-3 md:gap-6">
+        <div className="flex-center gap-2 md:gap-6 flex-1 justify-center">
           <button
             className="flex items-center gap-1.5"
             onClick={() => skip(-5)}
@@ -166,11 +181,14 @@ const PodcastPlayer = () => {
           >
             <Image
               src="/icons/reverse.svg"
-              width={24}
-              height={24}
+              width={30}
+              height={30}
               alt="Rewind"
+              className="max-md:w-6 max-md:h-6"
             />
-            <span className="text-12 font-bold text-white-4">-5</span>
+            <span className="text-12 font-bold text-white-4 max-md:hidden">
+              -5
+            </span>
           </button>
 
           <button
@@ -183,6 +201,7 @@ const PodcastPlayer = () => {
               width={30}
               height={30}
               alt={isPlaying ? "Pause" : "Play"}
+              className="max-md:size-6"
             />
           </button>
 
@@ -191,24 +210,22 @@ const PodcastPlayer = () => {
             onClick={() => skip(5)}
             aria-label="Forward 5 seconds"
           >
-            <span className="text-12 font-bold text-white-4">+5</span>
+            <span className="text-12 font-bold text-white-4 max-md:hidden">
+              +5
+            </span>
             <Image
               src="/icons/forward.svg"
-              width={24}
-              height={24}
+              width={30}
+              height={30}
               alt="Forward"
+              className="max-md:w-6 max-md:h-6"
             />
           </button>
         </div>
 
         {/* Time and Volume */}
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-2 text-16 font-normal text-white-2">
-            <span>{formatTime(currentTime)}</span>
-            <span>/</span>
-            <span>{formatTime(duration)}</span>
-          </div>
-
+        <div className="flex items-center gap-4 md:gap-6 max-sm:gap-2">
+          {timeDisplay}
           <button
             onClick={toggleMute}
             aria-label={isMuted ? "Unmute" : "Mute"}
@@ -216,9 +233,10 @@ const PodcastPlayer = () => {
           >
             <Image
               src={isMuted ? "/icons/unmute.svg" : "/icons/mute.svg"}
-              width={24}
-              height={24}
+              width={28}
+              height={28}
               alt={isMuted ? "Unmute" : "Mute"}
+              className="max-md:size-5"
             />
           </button>
         </div>
