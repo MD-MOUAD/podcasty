@@ -1,59 +1,52 @@
 "use client";
 
-import { SignedIn, UserButton, useUser } from "@clerk/nextjs";
-import Image from "next/image";
-import Link from "next/link";
+// import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { getTopPodcasters } from "@/lib/actions/user.actions";
-import Header from "./Header";
+import Header from "../Header";
 import { TopPodcaster } from "@/lib/actions/shared.types";
-import Carousel from "./Carousel";
 import { useAudio } from "@/providers/AudioProvider";
+import UserAvatar from "./UserAvatar";
+import FansRecommendationCarousel from "./FansRecommendationCarousel";
+import TestWaterFall from "./TestWaterFall";
+import Image from "next/image";
 
 const RightSidebar = () => {
-  const { user } = useUser();
-  const router = useRouter();
+  // const router = useRouter();
   const [topPodcasters, setTopPodcasters] = useState<TopPodcaster[]>([]);
 
   useEffect(() => {
     const loadTopPodcasters = async () => {
-      const data = await getTopPodcasters(5);
-      setTopPodcasters(data);
+      try {
+        const data = await getTopPodcasters(5);
+        setTopPodcasters(data);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     loadTopPodcasters();
   }, []);
 
   const { audio } = useAudio();
+  const router = useRouter();
 
   return (
     <section
-      className={cn("right_sidebar no-scrollbar h-[calc(100vh-5px)]", {
-        "h-[calc(100vh-120px)]": audio?.audioUrl,
-      })}
+      className={cn(
+        "right_sidebar no-scrollbar h-[calc(100vh-5px)] transition-all duration-500 ease-in-out",
+        {
+          "h-[calc(100vh-120px)]": audio?.audioUrl,
+        }
+      )}
     >
-      <SignedIn>
-        <Link href={`/profile/${user?.id}`} className="flex gap-3 pb-12">
-          <UserButton />
-          <div className="flex w-full items-center justify-between">
-            <h1 className="text-16 truncate font-semibold text-white-1">
-              {user?.firstName} {user?.lastName}
-            </h1>
-            <Image
-              src="/icons/right-arrow.svg"
-              alt="arrow"
-              width={22}
-              height={22}
-            />
-          </div>
-        </Link>
-      </SignedIn>
+      <UserAvatar />
       <section>
         <Header headerTitle="Fans Also Like" />
         <div className="mt-2" />
-        <Carousel fansLikeDetail={topPodcasters!} />
+        <FansRecommendationCarousel />
       </section>
       <section className="flex flex-col gap-8 pt-12">
         <Header headerTitle="Top Podcasters" />

@@ -3,7 +3,6 @@ import useEmblaCarousel from "embla-carousel-react";
 import { CarouselProps } from "@/types";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import LoaderSpinner from "./LoaderSpinner";
 import { TopPodcaster } from "@/lib/actions/shared.types";
 import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
 
@@ -21,14 +20,12 @@ const Carousel = ({ fansLikeDetail }: CarouselProps) => {
     (item: TopPodcaster) => item.podcastCount > 0
   );
 
-  if (!slides) return <LoaderSpinner />;
-
   return (
     <section
-      className="flex w-full flex-col gap-4 overflow-hidden"
+      className="flex w-full flex-col gap-4 overflow-hidden min-h-[276px]"
       ref={emblaRef}
     >
-      <div className="flex">
+      <div className="flex w-full">
         {slides.slice(0, 5).map((item) => (
           <figure
             key={item.clerkId}
@@ -39,6 +36,7 @@ const Carousel = ({ fansLikeDetail }: CarouselProps) => {
               src={item.picture as string}
               alt="card"
               fill
+              priority
               className="absolute size-full rounded-xl border-none object-cover"
             />
             <div className="glassmorphism-black relative z-10 flex flex-col rounded-b-xl p-4">

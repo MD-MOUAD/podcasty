@@ -3,7 +3,7 @@ import PodcastDetailPlayer from "@/components/PodcastDetailPlayer";
 import { getPodcastById } from "@/lib/actions/podcast.actions";
 import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import PodcastNotFound from "./_components/PodcastNotFound";
 
 const PodcastDetails = async ({
   params,
@@ -17,9 +17,8 @@ const PodcastDetails = async ({
     podcast = await getPodcastById(params.podcastId);
   } catch (error) {
     console.log(error);
-    notFound();
   }
-  if (!podcast) notFound();
+  if (!podcast) return <PodcastNotFound />;
 
   const isOwner = userId === podcast?.authorClerkId;
 
