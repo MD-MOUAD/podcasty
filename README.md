@@ -1,6 +1,6 @@
 # Podcasty - Podcast Streaming Application
 
-![Podcasty Banner](./public/images/banner.png)
+![Podcasty Banner](./public/images/banner-screenshot.png)
 
 Podcasty is a modern podcast streaming platform that allows users to discover, listen to, and share their favorite podcasts. The app includes a powerful text-to-speech functionality, allowing users to convert written text into fully playable podcast episodes.
 Built with cutting-edge technologies like Next.js, MongoDB, and Cloudinary, Podcasty offers a seamless and engaging listening experience with robust features like audio playback, podcast management, text-to-speech conversion, and user profiles.
