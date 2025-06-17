@@ -21,7 +21,7 @@ export interface DeleteUserParams {
   clerkId: string;
 }
 
-interface TopPodcaster {
+export interface TopPodcaster {
   clerkId: string;
   name: string;
   picture?: string;
@@ -32,4 +32,8 @@ interface TopPodcaster {
     imageUrl: string;
     createdAt: string;
   };
+}
+export interface AuthorPodcastsResponse {
+  podcasts: IPodcast[];
+  views: number;
 }

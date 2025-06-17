@@ -61,7 +61,7 @@ const TopPodcasters = () => {
               priority
               width={44}
               height={44}
-              className="aspect-square rounded-lg"
+              className="aspect-square rounded-lg object-cover object-center"
             />
             <h2 className="text-[12px] font-semibold text-white-1">
               {podcaster.name}

@@ -63,3 +63,17 @@ export interface AudioContextType {
   audio: AudioProps | undefined;
   setAudio: React.Dispatch<React.SetStateAction<AudioProps | undefined>>;
 }
+
+export interface ProfilePodcastProps {
+  podcasts: IPodcast[];
+  listeners: number;
+}
+
+export interface ProfileCardProps {
+  podcastData: ProfilePodcastProps;
+  imageUrl: string;
+  userFirstName: string;
+}
+export interface LatestPodcastsProps {
+  latestPodcastsData: IPodcast[];
+}
