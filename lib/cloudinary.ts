@@ -8,7 +8,7 @@ cloudinary.config({
 
 export const uploadMedia = async (
   fileBuffer: Buffer,
-  folder: "podcast-images" | "podcast-audio",
+  folder: "podcast-images" | "podcast-audio"
 ): Promise<string> => {
   return new Promise((resolve, reject) => {
     const resourceType = folder === "podcast-audio" ? "video" : "image";
@@ -28,9 +28,33 @@ export const uploadMedia = async (
       (error, result) => {
         if (error) reject(error);
         else resolve(result!.secure_url);
-      },
+      }
     );
 
     uploadStream.end(fileBuffer);
   });
+};
+
+const extractPublicId = (url: string): string | null => {
+  // Extract public ID from Cloudinary URL
+  const matches = url.match(/\/upload\/(?:v\d+\/)?([^\.]+)/);
+  return matches ? matches[1] : null;
+};
+
+export const deleteMedia = async (
+  url: string,
+  resourceType: "image" | "video" = "image"
+) => {
+  try {
+    const publicId = extractPublicId(url);
+    if (!publicId) return;
+
+    await cloudinary.uploader.destroy(publicId, {
+      resource_type: resourceType,
+    });
+    return true;
+  } catch (error) {
+    console.error("Error deleting media from Cloudinary:", error);
+    throw error;
+  }
 };

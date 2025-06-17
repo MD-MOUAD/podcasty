@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import User from "@/lib/models/User";
+import User, { IUser } from "@/lib/models/User";
 import { connectToDatabase } from "@/lib/db";
 import {
   CreateUserParams,
@@ -11,7 +11,7 @@ import {
   UpdateUserParams,
 } from "@/lib/actions/shared.types";
 
-export async function getUserById(params: GetUserByIdParams) {
+export async function getUserById(params: GetUserByIdParams): Promise<IUser> {
   try {
     connectToDatabase();
 

@@ -8,6 +8,18 @@ import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import { useAudio } from "@/providers/AudioProvider";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./ui/alert-dialog";
+import { deletePodcast } from "@/lib/actions/podcast.actions";
 
 const PodcastDetailPlayer = ({
   podcast,
@@ -16,6 +28,7 @@ const PodcastDetailPlayer = ({
   const router = useRouter();
   const { toast } = useToast();
   const { setAudio } = useAudio();
+  const [isOpen, setIsOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
   const author = podcast.userId as IUser;
@@ -34,7 +47,8 @@ const PodcastDetailPlayer = ({
   };
   const handleDelete = async () => {
     try {
-      // await deletePodcast(podcast);
+      setIsDeleting(true);
+      await deletePodcast(podcast._id?.toString(), "/");
       toast({
         title: "Podcast deleted",
       });
@@ -45,6 +59,8 @@ const PodcastDetailPlayer = ({
         title: "Error deleting podcast",
         variant: "destructive",
       });
+    } finally {
+      setIsDeleting(false);
     }
   };
   return (
@@ -103,20 +119,41 @@ const PodcastDetailPlayer = ({
             height={30}
             alt="Three dots icon"
             className="cursor-pointer"
-            onClick={() => setIsDeleting((prev) => !prev)}
+            onClick={() => setIsOpen((prev) => !prev)}
           />
-          {isDeleting && (
-            <div
-              className="absolute -left-32 -top-2 z-10 flex w-32 cursor-pointer justify-center gap-2 rounded-md bg-black-6 py-1.5 hover:bg-black-2"
-              onClick={handleDelete}
-            >
-              <Image
-                src="/icons/delete.svg"
-                width={16}
-                height={16}
-                alt="Delete icon"
-              />
-              <h2 className="text-16 font-normal text-white-1">Delete</h2>
+          {isOpen && (
+            <div className="absolute -left-32 -top-2 z-10  ">
+              <AlertDialog>
+                <AlertDialogTrigger className="flex w-32 gap-2 cursor-pointer justify-center rounded-md bg-black-6 py-1.5 hover:bg-black-2">
+                  <Image
+                    src="/icons/delete.svg"
+                    width={16}
+                    height={16}
+                    alt="Delete icon"
+                  />
+                  <h2 className="text-16 font-normal text-white-1">Delete</h2>
+                </AlertDialogTrigger>
+                <AlertDialogContent className="bg-black-2 border-white-1/5">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle className="text-white-1">
+                      Are you absolutely sure?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription className="text-white-1/70">
+                      This action cannot be undone. This will permanently delete
+                      your Podcast from our servers.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      disabled={isDeleting}
+                      onClick={handleDelete}
+                    >
+                      Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
           )}
         </div>
