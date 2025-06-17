@@ -10,7 +10,6 @@ import { TopPodcaster } from "@/lib/actions/shared.types";
 import { useAudio } from "@/providers/AudioProvider";
 import UserAvatar from "./UserAvatar";
 import FansRecommendationCarousel from "./FansRecommendationCarousel";
-import TestWaterFall from "./TestWaterFall";
 import Image from "next/image";
 
 const RightSidebar = () => {
