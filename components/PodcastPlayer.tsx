@@ -184,7 +184,7 @@ const PodcastPlayer = () => {
 
   // Volume control component
   const volumeControl = (
-    <div className="flex flex-col gap-2 h-full justify-end">
+    <div className="flex flex-col lg:flex-row gap-1 lg:gap-2 justify-end items-end lg:items-center">
       {timeDisplay}
       <div className="flex items-center justify-center gap-2">
         <button
@@ -206,7 +206,7 @@ const PodcastPlayer = () => {
           min={0}
           max={1}
           step={0.01}
-          className="w-24"
+          className="w-24 cursor-pointer "
         />
       </div>
     </div>
@@ -217,8 +217,7 @@ const PodcastPlayer = () => {
       className={cn(
         "sticky bottom-0 left-0 flex size-full flex-col bg-black/80 backdrop-blur-lg transition-all duration-500 ease-in-out",
         {
-          "translate-y-full":
-            !audio?.audioUrl || audio?.audioUrl === "" || !isVisible,
+          hidden: !audio?.audioUrl || audio?.audioUrl === "" || !isVisible,
           "translate-y-0": isVisible && audio?.audioUrl && audio?.audioUrl,
         }
       )}
