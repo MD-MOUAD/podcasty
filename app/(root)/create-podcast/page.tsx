@@ -166,7 +166,7 @@ const CreatePodcast = () => {
                   </FormLabel>
                   <FormControl>
                     <Input
-                      className="input-class focus-visible:ring-offset-orange-1"
+                      className="input-class max-sm:placeholder:text-12 focus-visible:ring-offset-orange-1"
                       placeholder="e.g. The Creative Hour"
                       {...field}
                     />
@@ -191,7 +191,7 @@ const CreatePodcast = () => {
                   </FormLabel>
                   <FormControl>
                     <Textarea
-                      className="input-class focus-visible:ring-offset-orange-1"
+                      className="input-class max-sm:placeholder:text-12 focus-visible:ring-offset-orange-1"
                       placeholder="Write a short podcast description"
                       {...field}
                     />
@@ -215,7 +215,7 @@ const CreatePodcast = () => {
             <div className="mx-auto mt-10 w-11/12">
               <Button
                 type="submit"
-                className="text-16 w-full bg-orange-1 py-6 font-extrabold text-white-1 transition-all duration-500"
+                className="text-14 sm:text-16 w-full bg-orange-1 py-5 font-extrabold text-white-1 transition-all duration-500 max-sm:mb-6 lg:py-6"
               >
                 {isSubmitting ? (
                   <>

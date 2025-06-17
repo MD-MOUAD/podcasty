@@ -138,7 +138,7 @@ const VoiceActorSelector = ({
                     <Label className="mb-1 block text-sm font-medium">
                       Description
                     </Label>
-                    <p className="text-gray-400">
+                    <p className="max-sm:text-14 text-gray-400">
                       {selectedVoice.description || 'No description available'}
                     </p>
                   </div>
@@ -148,7 +148,7 @@ const VoiceActorSelector = ({
                       <Label className="mb-1 block text-sm font-medium">
                         Gender
                       </Label>
-                      <div className="text-gray-400">
+                      <div className="max-md:text-12 truncate text-gray-400">
                         {selectedVoice.labels.gender || 'N/A'}
                       </div>
                     </div>
@@ -157,7 +157,7 @@ const VoiceActorSelector = ({
                       <Label className="mb-1 block text-sm font-medium">
                         Age
                       </Label>
-                      <div className="text-gray-400">
+                      <div className="max-md:text-12 truncate text-gray-400">
                         {selectedVoice.labels.age || 'N/A'}
                       </div>
                     </div>
@@ -166,7 +166,7 @@ const VoiceActorSelector = ({
                       <Label className="mb-1 block text-sm font-medium">
                         Accent
                       </Label>
-                      <div className="text-gray-400">
+                      <div className="max-md:text-12 truncate text-gray-400">
                         {selectedVoice.labels.accent || 'N/A'}
                       </div>
                     </div>
@@ -175,7 +175,7 @@ const VoiceActorSelector = ({
                       <Label className="mb-1 block text-sm font-medium">
                         Use Case
                       </Label>
-                      <div className="text-gray-400">
+                      <div className="max-md:text-12 truncate text-gray-400">
                         {selectedVoice.labels.use_case || 'N/A'}
                       </div>
                     </div>
@@ -198,7 +198,7 @@ const VoiceActorSelector = ({
         <h3 className="text-16 mb-3 font-semibold text-white-1">
           Other Voice Actors
         </h3>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
           {voices
             .filter((voice) => voice.voice_id !== selectedVoiceId)
             .slice(0, 3)
@@ -216,7 +216,7 @@ const VoiceActorSelector = ({
                         height={48}
                         width={48}
                         alt="voice"
-                        className="size-12"
+                        className="size-20 sm:size-12"
                       />
                     </div>
                     <div>

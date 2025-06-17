@@ -34,10 +34,10 @@ const LatestPodcasts = ({ latestPodcastsData }: LatestPodcastsProps) => {
         return (
           <div key={podcast._id.toString()}>
             <div className="flex cursor-default">
-              <div className="group flex w-2/3 items-center gap-6 transition-colors duration-500 hover:cursor-default sm:w-1/2">
+              <div className="group flex w-2/3 items-center gap-4 transition-colors duration-500 hover:cursor-default sm:w-1/2 md:gap-6">
                 {/* Podcast name and thumbnail */}
                 <div
-                  className={`text-16 relative w-2 text-center font-bold group-hover:text-orange-1 ${
+                  className={`text-12 md:text-16 relative w-2 text-center font-bold group-hover:text-orange-1 ${
                     isActive ? 'text-orange-1' : 'text-white-1'
                   }`}
                 >
@@ -60,7 +60,7 @@ const LatestPodcasts = ({ latestPodcastsData }: LatestPodcastsProps) => {
                 </div>
                 <Link
                   href={`/podcasts/${podcast._id}`}
-                  className={`text-16 max-w-32 cursor-pointer truncate font-bold hover:underline group-hover:text-orange-1 lg:max-w-44 ${
+                  className={`text-12 md:text-16 max-w-28 cursor-pointer truncate font-bold hover:underline group-hover:text-orange-1 lg:max-w-44 ${
                     isActive ? 'text-orange-1' : 'text-white-1'
                   }`}
                 >
@@ -70,16 +70,16 @@ const LatestPodcasts = ({ latestPodcastsData }: LatestPodcastsProps) => {
               <div className="flex w-1/3 items-center max-sm:justify-between sm:w-1/2">
                 <div className="flex w-2/5 items-center gap-2.5">
                   {/* Podcast views */}
-
                   <Image
                     src="/icons/headphone.svg"
                     alt="headphone"
                     height={24}
                     width={24}
+                    className="max-md:size-4"
                   />
-                  <span className="text-16 flex items-center justify-center font-bold text-white-1">
+                  <p className="text-12 sm:text-16 mt-1 font-bold text-white-1">
                     {podcast.views}
-                  </span>
+                  </p>
                 </div>
                 <div className="hidden w-2/5 items-center gap-2.5 sm:flex">
                   {/* Podcast duration */}
@@ -95,13 +95,13 @@ const LatestPodcasts = ({ latestPodcastsData }: LatestPodcastsProps) => {
                 </div>
                 <div className="sm:w-1/5">
                   {/* Tree dots */}
-                  <div className="ml-auto mr-1 size-fit rounded-full p-1 transition-all duration-300 hover:bg-gray-500/10 hover:shadow-sm hover:shadow-white-1/50">
+                  <div className="ml-auto mr-1 size-fit rounded-full p-1 transition-all duration-300 md:shadow-sm md:hover:bg-gray-500/10 md:hover:shadow-white-1/50">
                     <Image
                       src="/icons/three-dots.svg"
                       alt="more"
                       height={28}
                       width={28}
-                      className="rotate-90 cursor-pointer"
+                      className="rotate-90 cursor-pointer max-md:size-5"
                     />
                   </div>
                 </div>

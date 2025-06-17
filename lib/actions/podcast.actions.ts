@@ -8,6 +8,7 @@ import { auth } from '@clerk/nextjs/server';
 import { Types } from 'mongoose';
 import { revalidatePath } from 'next/cache';
 import { AuthorPodcastsResponse } from './shared.types';
+import { delay } from '../utils';
 
 export const createPodcast = async (
   title: string,
@@ -79,6 +80,7 @@ export const createPodcast = async (
 export const getTrendingPodcasts = async (
   limit: number = 12
 ): Promise<IPodcast[]> => {
+  await delay(2000);
   try {
     await connectToDatabase();
     const oneWeekAgo = new Date();

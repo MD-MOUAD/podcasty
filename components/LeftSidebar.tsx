@@ -21,10 +21,10 @@ const LeftSidebar = () => {
       <nav className="flex flex-col gap-6">
         <Link
           href="/"
-          className="flex cursor-pointer items-center gap-1 pb-10 max-lg:justify-center"
+          className="flex cursor-pointer items-center gap-1 pb-10 max-lg:pl-4"
         >
           <Image src="/icons/logo.svg" alt="logo" width={23} height={27} />
-          <h1 className="text-24 text-white font-extrabold max-lg:hidden">
+          <h1 className="text-16 lg:text-24 text-white font-extrabold">
             Podcasty
           </h1>
         </Link>

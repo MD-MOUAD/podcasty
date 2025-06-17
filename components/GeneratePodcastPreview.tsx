@@ -135,7 +135,7 @@ const GeneratePodcastPreview = ({
           </span>
         </div>
         <Textarea
-          className="input-class font-light focus-visible:ring-offset-orange-1"
+          className="input-class max-sm:placeholder:text-12 font-light focus-visible:ring-offset-orange-1"
           placeholder="Provide text to generate audio"
           rows={5}
           value={voicePrompt}
@@ -154,10 +154,10 @@ const GeneratePodcastPreview = ({
 
       <div className="mt-5 w-full max-w-[250px]">
         <button
-          className={`text-16 flex items-center justify-center gap-1 rounded-lg px-10 py-3 font-bold text-white-1 ${
+          className={`text-12 sm:text-16 flex items-center justify-center gap-1 rounded-lg px-5 py-3 font-bold text-white-1 sm:px-10 ${
             isValid && !hasGenerated
               ? 'bg-orange-1 hover:bg-orange-600'
-              : 'cursor-not-allowed bg-gray-500'
+              : 'cursor-not-allowed bg-gray-500/50'
           }`}
           onClick={generatePreview}
           disabled={!isValid || isGenerating || hasGenerated}

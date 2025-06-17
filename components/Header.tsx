@@ -18,7 +18,10 @@ const Header = ({
       ) : (
         <div />
       )}
-      <Link href="/discover" className="text-16 font-semibold text-orange-1">
+      <Link
+        href="/discover"
+        className="text-12 md:text-16 font-semibold text-orange-1"
+      >
         See all
       </Link>
     </header>

@@ -5,16 +5,16 @@ const LatestPodcastsSkeleton = () => {
         return (
           <div key={i}>
             <div className="flex">
-              <div className="flex w-2/3 items-center gap-6 sm:w-1/2">
+              <div className="flex w-2/3 items-center gap-4 sm:w-1/2 md:gap-6">
                 {/* Podcast name and thumbnail */}
                 <div className="w-2" />
                 <div className="h-[54px] w-[52px] animate-pulse rounded-md bg-gray-400" />
-                <div className="h-2.5 w-28 animate-pulse rounded-md bg-gray-400 lg:w-32" />
+                <div className="h-2.5 w-24 animate-pulse rounded-md bg-gray-400 lg:w-32" />
               </div>
               <div className="flex w-1/3 items-center max-sm:justify-between sm:w-1/2">
                 <div className="w-2/5">
                   {/* Podcast views */}
-                  <div className="h-2.5 w-20 animate-pulse rounded-md bg-gray-400" />
+                  <div className="h-2.5 w-12 animate-pulse rounded-md bg-gray-400 md:w-20" />
                 </div>
                 <div className="hidden w-2/5 sm:flex">
                   {/* Podcast duration */}

@@ -68,7 +68,7 @@ const MobileNav = () => {
                     );
                   })}
                 </div>
-                <>
+                <div className="mb-12">
                   <SignedOut>
                     <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
                       <Button
@@ -89,7 +89,7 @@ const MobileNav = () => {
                       </Button>
                     </div>
                   </SignedIn>
-                </>
+                </div>
               </nav>
             </SheetClose>
           </div>

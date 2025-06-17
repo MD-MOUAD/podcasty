@@ -32,11 +32,11 @@ const PodcastCard = ({
     <div
       className={`cursor-pointer ${
         insideFlexContainer &&
-        'max-w-[140px] md:max-w-[160px] lg:max-w-[180px] xl:max-w-[190px] 2xl:max-w-[200px]'
+        'w-[100px] md:w-[140px] lg:w-[160px] xl:w-[190px] 2xl:w-[200px]'
       }`}
       onClick={handleViews}
     >
-      <figure className="flex flex-col gap-2">
+      <figure className="flex w-full flex-col gap-2">
         <Image
           src={imgUrl}
           width={174}
@@ -45,8 +45,10 @@ const PodcastCard = ({
           className="aspect-square h-fit w-full rounded-xl object-cover object-center 2xl:size-[200px]"
         />
         <div className="flex flex-col 2xl:max-w-[200px]">
-          <h1 className="text-16 truncate font-bold text-white-1">{title}</h1>
-          <h2 className="text-12 truncate font-normal capitalize text-white-4">
+          <h1 className="lg:text-16 truncate text-[12px] font-bold text-white-1">
+            {title}
+          </h1>
+          <h2 className="lg:text-12 truncate text-[10px] font-normal capitalize text-white-4">
             {description}
           </h2>
         </div>

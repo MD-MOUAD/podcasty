@@ -10,19 +10,26 @@ const Home = async () => {
   return (
     <div className="mt-9 flex flex-col gap-9">
       <section className="flex flex-col gap-5">
-        <h1 className="text-20 font-bold text-white-1">Trending Podcasts</h1>
+        <h1 className="text-16 md:text-20 font-bold text-white-1">
+          Trending Podcasts
+        </h1>
         <Suspense fallback={<TrendingPodcastsSkeleton />}>
           <TrendingPodcastsWrapper />
         </Suspense>
       </section>
       <section className="flex flex-col gap-5">
-        <Header headerTitle={'Latest Podcasts'} titleClassName={'!text-20'} />
+        <Header
+          headerTitle={'Latest Podcasts'}
+          titleClassName={'!text-16 !md:text-20'}
+        />
         <Suspense fallback={<LatestPodcastsSkeleton />}>
           <LatestPodcastsWrapper />
         </Suspense>
       </section>
       <section className="flex flex-col gap-5">
-        <h1 className="text-20 font-bold text-white-1">Popular Podcasts</h1>
+        <h1 className="text-16 md:text-20 font-bold text-white-1">
+          Popular Podcasts
+        </h1>
         <Suspense fallback={<PodcastsGridSkeleton />}>
           <PopularPodcastsGrid />
         </Suspense>

@@ -175,7 +175,7 @@ const PodcastPlayer = () => {
 
   // Time display component
   const timeDisplay = (
-    <div className="text-12 md:text-16 flex w-[80px] items-center gap-2 text-right font-normal text-white-2 md:w-[120px]">
+    <div className="md:text-16 flex w-[80px] items-center gap-1 text-right text-[9px] font-normal text-white-2 md:w-[120px] lg:gap-2">
       <span className="tabular-nums">{formatTime(currentTime)}</span>
       <span>/</span>
       <span className="tabular-nums">{formatTime(duration)}</span>
@@ -184,8 +184,8 @@ const PodcastPlayer = () => {
 
   // Volume control component
   const volumeControl = (
-    <div className="flex flex-col items-end justify-end gap-1 lg:flex-row lg:items-center lg:gap-2">
-      {timeDisplay}
+    <div className="flex flex-col items-start justify-end gap-1 lg:flex-row lg:items-center lg:gap-2">
+      <div className="hidden md:block">{timeDisplay}</div>
       <div className="flex items-center justify-center gap-2">
         <button
           onClick={() => handleVolumeChange([isMuted ? 0.7 : 0])}
@@ -206,7 +206,7 @@ const PodcastPlayer = () => {
           min={0}
           max={1}
           step={0.01}
-          className="w-24 cursor-pointer"
+          className="w-20 cursor-pointer lg:w-24"
         />
       </div>
     </div>
@@ -260,6 +260,8 @@ const PodcastPlayer = () => {
             className="aspect-square rounded-xl object-cover max-md:h-12 max-md:w-12"
             priority
           />
+
+          <div className="md:hidden">{timeDisplay}</div>
 
           <div className="flex min-w-0 flex-col max-md:hidden">
             <h2 className="text-14 truncate font-semibold text-white-1">
