@@ -69,7 +69,7 @@ const PodcastsSlider = ({ podcasts }: { podcasts: IPodcast[] }) => {
       )}
       <div
         ref={containerRef}
-        className="flex gap-2 md:gap-8 lg:gap-10 xl:gap-12 2xl:gap-16 no-scrollbar overflow-x-auto"
+        className="flex gap-2 md:gap-8 lg:gap-10 xl:gap-12 no-scrollbar overflow-x-auto"
       >
         {podcasts?.map(({ _id, title, description, imageUrl }) => (
           <PodcastCard

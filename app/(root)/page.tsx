@@ -1,16 +1,14 @@
-import PodcastsSlider from "@/components/PodcastsSlider";
-import { getTrendingPodcasts } from "@/lib/actions/podcast.actions";
-
+import TrendingPodcastsSkeleton from "@/components/HomePage/TrendingPodcastsSkeleton";
+import TrendingPodcastsWrapper from "@/components/HomePage/TrendingPodcastsWrapper";
+import { Suspense } from "react";
 const Home = async () => {
-  const trendingPodcasts = await getTrendingPodcasts();
-
   return (
     <div className="mt-9 flex flex-col gap-9">
       <section className="flex flex-col gap-5">
         <h1 className="text-20 font-bold text-white-1">Trending Podcasts</h1>
-        <PodcastsSlider
-          podcasts={JSON.parse(JSON.stringify(trendingPodcasts))}
-        />
+        <Suspense fallback={<TrendingPodcastsSkeleton />}>
+          <TrendingPodcastsWrapper />
+        </Suspense>
       </section>
     </div>
   );

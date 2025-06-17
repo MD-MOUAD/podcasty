@@ -13,7 +13,7 @@ const RightSidebar = () => {
   return (
     <section
       className={cn(
-        "right_sidebar overflow-y-auto no-scrollbar h-[calc(100vh-5px)] transition-all duration-500 ease-in-out",
+        "right_sidebar overflow-y-auto no-scrollbar h-[calc(100vh-5px)]",
         {
           "h-[calc(100vh-120px)]": audio?.audioUrl,
         }
