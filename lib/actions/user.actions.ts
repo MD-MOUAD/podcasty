@@ -1,15 +1,15 @@
-"use server";
+'use server';
 
-import { revalidatePath } from "next/cache";
-import User, { IUser } from "@/lib/models/User";
-import { connectToDatabase } from "@/lib/db";
+import { revalidatePath } from 'next/cache';
+import User, { IUser } from '@/lib/models/User';
+import { connectToDatabase } from '@/lib/db';
 import {
   CreateUserParams,
   DeleteUserParams,
   GetUserByIdParams,
   TopPodcaster,
   UpdateUserParams,
-} from "@/lib/actions/shared.types";
+} from '@/lib/actions/shared.types';
 
 export async function getUserById(params: GetUserByIdParams): Promise<IUser> {
   try {
@@ -58,7 +58,7 @@ export async function deleteUser(params: DeleteUserParams) {
     const user = await User.findOne({ clerkId });
 
     if (!user) {
-      throw new Error("User Not Found");
+      throw new Error('User Not Found');
     }
     // Todo: delete all related podcasts
     const deletedUser = await User.findByIdAndDelete(user._id);
@@ -77,15 +77,15 @@ export async function getTopPodcasters(limit: number): Promise<TopPodcaster[]> {
     const result = await User.aggregate([
       {
         $lookup: {
-          from: "podcasts",
-          localField: "_id",
-          foreignField: "userId",
-          as: "podcasts",
+          from: 'podcasts',
+          localField: '_id',
+          foreignField: 'userId',
+          as: 'podcasts',
         },
       },
       {
         $addFields: {
-          podcastCount: { $size: "$podcasts" },
+          podcastCount: { $size: '$podcasts' },
         },
       },
       { $match: { podcastCount: { $gt: 0 } } },
@@ -100,12 +100,12 @@ export async function getTopPodcasters(limit: number): Promise<TopPodcaster[]> {
           podcastCount: 1,
           latestPodcast: {
             $let: {
-              vars: { firstPod: { $arrayElemAt: ["$podcasts", -1] } },
+              vars: { firstPod: { $arrayElemAt: ['$podcasts', -1] } },
               in: {
-                _id: { $toString: "$$firstPod._id" },
-                title: "$$firstPod.title",
-                imageUrl: "$$firstPod.imageUrl",
-                createdAt: { $toString: "$$firstPod.createdAt" },
+                _id: { $toString: '$$firstPod._id' },
+                title: '$$firstPod.title',
+                imageUrl: '$$firstPod.imageUrl',
+                createdAt: { $toString: '$$firstPod.createdAt' },
               },
             },
           },
@@ -115,7 +115,7 @@ export async function getTopPodcasters(limit: number): Promise<TopPodcaster[]> {
 
     return JSON.parse(JSON.stringify(result));
   } catch (error) {
-    console.error("[GET_TOP_PODCASTERS]", error);
-    throw new Error("Failed to fetch top podcasters");
+    console.error('[GET_TOP_PODCASTERS]', error);
+    throw new Error('Failed to fetch top podcasters');
   }
 }

@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import { AudioContextType, AudioProps } from "@/types";
-import { usePathname } from "next/navigation";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { AudioContextType, AudioProps } from '@/types';
+import { usePathname } from 'next/navigation';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const AudioContext = createContext<AudioContextType | undefined>(undefined);
 
 // Key for localStorage
-const AUDIO_STORAGE_KEY = "currentAudio";
+const AUDIO_STORAGE_KEY = 'currentAudio';
 
 const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const [audio, _setAudio] = useState<AudioProps | undefined>();
@@ -21,7 +21,7 @@ const AudioProvider = ({ children }: { children: React.ReactNode }) => {
         const parsedAudio = JSON.parse(savedAudio) as AudioProps;
         _setAudio(parsedAudio);
       } catch (error) {
-        console.error("Failed to parse audio from localStorage", error);
+        console.error('Failed to parse audio from localStorage', error);
         localStorage.removeItem(AUDIO_STORAGE_KEY);
       }
     }
@@ -30,7 +30,7 @@ const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   // Wrapper function to save to localStorage when setting audio
   const setAudio = (value: React.SetStateAction<AudioProps | undefined>) => {
     _setAudio((prev) => {
-      const newValue = typeof value === "function" ? value(prev) : value;
+      const newValue = typeof value === 'function' ? value(prev) : value;
 
       // Save to localStorage whenever audio changes
       if (newValue) {
@@ -45,7 +45,7 @@ const AudioProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Clear audio when navigating to create-podcast page
   useEffect(() => {
-    if (pathname === "/create-podcast") {
+    if (pathname === '/create-podcast') {
       setAudio(undefined);
     }
   }, [pathname]);
@@ -61,7 +61,7 @@ export const useAudio = () => {
   const context = useContext(AudioContext);
 
   if (!context)
-    throw new Error("useAudio must be used within an AudioProvider");
+    throw new Error('useAudio must be used within an AudioProvider');
 
   return context;
 };

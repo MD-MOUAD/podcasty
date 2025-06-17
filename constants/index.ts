@@ -1,19 +1,19 @@
-import { DiscoverIcon, HomeIcon, MicrophoneIcon } from "@/constants/icons";
+import { DiscoverIcon, HomeIcon, MicrophoneIcon } from '@/constants/icons';
 
 export const sidebarLinks = [
   {
-    route: "/",
-    label: "Home",
+    route: '/',
+    label: 'Home',
     icon: HomeIcon,
   },
   {
-    route: "/discover",
-    label: "Discover",
+    route: '/discover',
+    label: 'Discover',
     icon: DiscoverIcon,
   },
   {
-    route: "/create-podcast",
-    label: "Create Podcast",
+    route: '/create-podcast',
+    label: 'Create Podcast',
     icon: MicrophoneIcon,
   },
 ];

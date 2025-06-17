@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Button } from "@/components/ui/button";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -11,38 +11,38 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
-import { Loader } from "lucide-react";
-import GeneratePodcastPreview from "@/components/GeneratePodcastPreview";
-import VoiceActorSelector from "@/components/VoiceActorSelector";
-import voiceData from "@/data/voices.json";
-import { createPodcast } from "@/lib/actions/podcast.actions";
-import { useToast } from "@/hooks/use-toast";
-import GeneratePodcastThumbnail from "@/components/GeneratePodcastThumbnail";
-import { useRouter } from "next/navigation";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { useState } from 'react';
+import { Loader } from 'lucide-react';
+import GeneratePodcastPreview from '@/components/GeneratePodcastPreview';
+import VoiceActorSelector from '@/components/VoiceActorSelector';
+import voiceData from '@/data/voices.json';
+import { createPodcast } from '@/lib/actions/podcast.actions';
+import { useToast } from '@/hooks/use-toast';
+import GeneratePodcastThumbnail from '@/components/GeneratePodcastThumbnail';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   podcastTitle: z
     .string()
-    .min(3, "Podcast title must be at least 3 characters.")
-    .max(100, "Podcast title must be at most 100 characters."),
+    .min(3, 'Podcast title must be at least 3 characters.')
+    .max(100, 'Podcast title must be at most 100 characters.'),
 
   podcastDescription: z
     .string()
-    .min(10, "Description should be at least 10 characters.")
+    .min(10, 'Description should be at least 10 characters.')
     .max(1000, "Description can't exceed 1000 characters."),
 });
 
 const CreatePodcast = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedVoiceId, setSelectedVoiceId] = useState<string>(
-    voiceData[0]?.voice_id || "",
+    voiceData[0]?.voice_id || ''
   );
-  const [podcastContent, setPodcastContent] = useState("");
-  const [previewUrl, setPreviewUrl] = useState("");
+  const [podcastContent, setPodcastContent] = useState('');
+  const [previewUrl, setPreviewUrl] = useState('');
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
 
   const [imageBlob, setImageBlob] = useState<Blob | null>(null);
@@ -54,8 +54,8 @@ const CreatePodcast = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      podcastTitle: "",
-      podcastDescription: "",
+      podcastTitle: '',
+      podcastDescription: '',
     },
   });
 
@@ -70,27 +70,27 @@ const CreatePodcast = () => {
 
   const resetForm = () => {
     form.reset();
-    setPreviewUrl("");
+    setPreviewUrl('');
     setAudioBlob(null);
     setImageBlob(null);
-    setPodcastContent("");
+    setPodcastContent('');
   };
 
   const validateRequiredFields = () => {
     if (!audioBlob) {
       toast({
-        title: "Error",
-        description: "Please generate an audio preview first",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Please generate an audio preview first',
+        variant: 'destructive',
       });
       return false;
     }
 
     if (!imageBlob) {
       toast({
-        title: "Error",
-        description: "Please provide a thumbnail for the podcast",
-        variant: "destructive",
+        title: 'Error',
+        description: 'Please provide a thumbnail for the podcast',
+        variant: 'destructive',
       });
       return false;
     }
@@ -117,29 +117,29 @@ const CreatePodcast = () => {
         imageBase64,
         selectedVoiceId,
         duration,
-        "/",
+        '/'
       );
 
       if (result.success) {
         toast({
-          title: "Success",
-          description: "Podcast created successfully!",
+          title: 'Success',
+          description: 'Podcast created successfully!',
         });
         resetForm();
-        router.push("/");
+        router.push('/');
       } else {
         toast({
-          title: "Error",
-          description: result.error || "Failed to create podcast",
-          variant: "destructive",
+          title: 'Error',
+          description: result.error || 'Failed to create podcast',
+          variant: 'destructive',
         });
       }
     } catch (error) {
       console.error(error);
       toast({
-        title: "Error",
-        description: "An unexpected error occurred",
-        variant: "destructive",
+        title: 'Error',
+        description: 'An unexpected error occurred',
+        variant: 'destructive',
       });
     } finally {
       setIsSubmitting(false);
@@ -212,7 +212,7 @@ const CreatePodcast = () => {
             />
             <GeneratePodcastThumbnail setImage={setImageBlob} />
 
-            <div className="mt-10 w-11/12 mx-auto">
+            <div className="mx-auto mt-10 w-11/12">
               <Button
                 type="submit"
                 className="text-16 w-full bg-orange-1 py-6 font-extrabold text-white-1 transition-all duration-500"
@@ -223,7 +223,7 @@ const CreatePodcast = () => {
                     <Loader size={20} className="ml-2 animate-spin" />
                   </>
                 ) : (
-                  "Submit & Publish Podcast"
+                  'Submit & Publish Podcast'
                 )}
               </Button>
             </div>

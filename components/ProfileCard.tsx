@@ -1,12 +1,12 @@
-"use client";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { useAudio } from "@/providers/AudioProvider";
-import LoaderSpinner from "./LoaderSpinner";
-import { Button } from "./ui/button";
-import { IPodcast } from "@/lib/models/Podcast";
-import { IUser } from "@/lib/models/User";
-import { ProfileCardProps } from "@/types";
+'use client';
+import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { useAudio } from '@/providers/AudioProvider';
+import LoaderSpinner from './LoaderSpinner';
+import { Button } from './ui/button';
+import { IPodcast } from '@/lib/models/Podcast';
+import { IUser } from '@/lib/models/User';
+import { ProfileCardProps } from '@/types';
 
 const ProfileCard = ({
   podcastData,
@@ -88,7 +88,7 @@ const ProfileCard = ({
               width={20}
               height={20}
               alt="random play"
-            />{" "}
+            />{' '}
             &nbsp; Play a random podcast
           </Button>
         )}

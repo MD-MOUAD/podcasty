@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
 import {
   Sheet,
   SheetClose,
   SheetContent,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import { sidebarLinks } from "@/constants";
-import { cn } from "@/lib/utils";
-import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { Button } from "./ui/button";
+} from '@/components/ui/sheet';
+import { sidebarLinks } from '@/constants';
+import { cn } from '@/lib/utils';
+import { SignedIn, SignedOut, useClerk } from '@clerk/nextjs';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { Button } from './ui/button';
 
 const MobileNav = () => {
   const pathname = usePathname();
@@ -37,7 +37,7 @@ const MobileNav = () => {
             className="flex cursor-pointer items-center gap-1 pb-10 pl-4"
           >
             <Image src="/icons/logo.svg" alt="logo" width={23} height={27} />
-            <h1 className="text-24 font-extrabold  text-white-1 ml-2">
+            <h1 className="text-24 ml-2 font-extrabold text-white-1">
               Podcasty
             </h1>
           </Link>
@@ -54,11 +54,11 @@ const MobileNav = () => {
                         <Link
                           href={route}
                           className={cn(
-                            "flex gap-3 items-center py-4 max-lg:px-4 justify-start",
+                            'flex items-center justify-start gap-3 py-4 max-lg:px-4',
                             {
-                              "bg-nav-focus border-r-4 border-orange-1":
+                              'border-r-4 border-orange-1 bg-nav-focus':
                                 isActive,
-                            },
+                            }
                           )}
                         >
                           <Icon isActive={isActive} width={24} height={24} />
@@ -83,7 +83,7 @@ const MobileNav = () => {
                     <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
                       <Button
                         className="text-16 w-full bg-orange-1 font-extrabold"
-                        onClick={() => signOut(() => router.push("/"))}
+                        onClick={() => signOut(() => router.push('/'))}
                       >
                         Log Out
                       </Button>

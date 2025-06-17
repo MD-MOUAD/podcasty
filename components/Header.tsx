@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils";
-import Link from "next/link";
-import React from "react";
+import { cn } from '@/lib/utils';
+import Link from 'next/link';
+import React from 'react';
 
 const Header = ({
   headerTitle,
@@ -12,7 +12,7 @@ const Header = ({
   return (
     <header className="flex items-center justify-between">
       {headerTitle ? (
-        <h1 className={cn("text-18 font-bold text-white-1", titleClassName)}>
+        <h1 className={cn('text-18 font-bold text-white-1', titleClassName)}>
           {headerTitle}
         </h1>
       ) : (

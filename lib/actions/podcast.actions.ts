@@ -1,13 +1,13 @@
-"use server";
+'use server';
 
-import { uploadMedia, deleteMedia } from "@/lib/cloudinary";
-import { connectToDatabase } from "@/lib/db";
-import Podcast, { IPodcast } from "@/lib/models/Podcast";
-import User from "@/lib/models/User";
-import { auth } from "@clerk/nextjs/server";
-import { Types } from "mongoose";
-import { revalidatePath } from "next/cache";
-import { AuthorPodcastsResponse } from "./shared.types";
+import { uploadMedia, deleteMedia } from '@/lib/cloudinary';
+import { connectToDatabase } from '@/lib/db';
+import Podcast, { IPodcast } from '@/lib/models/Podcast';
+import User from '@/lib/models/User';
+import { auth } from '@clerk/nextjs/server';
+import { Types } from 'mongoose';
+import { revalidatePath } from 'next/cache';
+import { AuthorPodcastsResponse } from './shared.types';
 
 export const createPodcast = async (
   title: string,
@@ -17,34 +17,34 @@ export const createPodcast = async (
   imageBase64: string,
   voiceId: string,
   duration: number,
-  path: string,
+  path: string
 ): Promise<{ success: boolean; podcastId?: string; error?: string }> => {
   try {
     const { userId: clerkId } = await auth();
     if (!clerkId) {
-      return { success: false, error: "Unauthorized" };
+      return { success: false, error: 'Unauthorized' };
     }
 
     if (!title || !description || !content || !audioBase64 || !imageBase64) {
-      return { success: false, error: "Missing required fields" };
+      return { success: false, error: 'Missing required fields' };
     }
 
     await connectToDatabase();
 
     const user = await User.findOne({ clerkId });
     if (!user) {
-      return { success: false, error: "User not found" };
+      return { success: false, error: 'User not found' };
     }
 
     // Convert Base64 to Buffer
-    const audioBuffer = Buffer.from(audioBase64.split(",")[1], "base64");
-    const imageBuffer = Buffer.from(imageBase64.split(",")[1], "base64");
+    const audioBuffer = Buffer.from(audioBase64.split(',')[1], 'base64');
+    const imageBuffer = Buffer.from(imageBase64.split(',')[1], 'base64');
 
-    const uploadedAudioUrl = await uploadMedia(audioBuffer, "podcast-audio");
-    const uploadedImageUrl = await uploadMedia(imageBuffer, "podcast-images");
+    const uploadedAudioUrl = await uploadMedia(audioBuffer, 'podcast-audio');
+    const uploadedImageUrl = await uploadMedia(imageBuffer, 'podcast-images');
 
     if (!uploadedAudioUrl) {
-      return { success: false, error: "Failed to upload audio" };
+      return { success: false, error: 'Failed to upload audio' };
     }
 
     const podcast = new Podcast({
@@ -67,17 +67,17 @@ export const createPodcast = async (
 
     return { success: true, podcastId: podcast._id.toString() };
   } catch (error) {
-    console.error("Podcast creation failed:", error);
+    console.error('Podcast creation failed:', error);
     return {
       success: false,
       error:
-        error instanceof Error ? error.message : "Failed to create podcast",
+        error instanceof Error ? error.message : 'Failed to create podcast',
     };
   }
 };
 
 export const getTrendingPodcasts = async (
-  limit: number = 12,
+  limit: number = 12
 ): Promise<IPodcast[]> => {
   try {
     await connectToDatabase();
@@ -92,25 +92,25 @@ export const getTrendingPodcasts = async (
 
     return trendingPodcasts;
   } catch (error) {
-    console.error("Error fetching podcasts:", error);
+    console.error('Error fetching podcasts:', error);
     return [];
   }
 };
 
 export const getPodcastById = async (
-  podcastId: string,
+  podcastId: string
 ): Promise<IPodcast | null> => {
   try {
     await connectToDatabase();
 
     if (!Types.ObjectId.isValid(podcastId)) {
-      throw new Error("Invalid podcast ID");
+      throw new Error('Invalid podcast ID');
     }
-    const podcast = await Podcast.findById(podcastId).populate("userId");
+    const podcast = await Podcast.findById(podcastId).populate('userId');
 
     return podcast;
   } catch (error) {
-    console.error("Error fetching podcast by ID:", error);
+    console.error('Error fetching podcast by ID:', error);
     return null;
   }
 };
@@ -120,30 +120,30 @@ export async function incrementPodcastViews(podcastId: string) {
   await Podcast.findByIdAndUpdate(
     podcastId,
     { $inc: { views: 1 } },
-    { new: true },
+    { new: true }
   );
 }
 
 export async function getAuthorPodcasts(
-  clerkId: string,
+  clerkId: string
 ): Promise<AuthorPodcastsResponse | undefined> {
   try {
     await connectToDatabase();
 
     const user = await User.findOne({ clerkId });
     if (!user) {
-      throw new Error("User not found");
+      throw new Error('User not found');
     }
 
     // Find all podcasts by this user and populate the userId field
     const podcasts = await Podcast.find({ userId: user._id })
       .sort({ createdAt: -1 }) // Sort by newest first
-      .populate("userId", "name picture clerkId");
+      .populate('userId', 'name picture clerkId');
 
     // Calculate total views across all podcasts
     const totalViews = podcasts.reduce(
       (sum, podcast) => sum + (podcast.views || 0),
-      0,
+      0
     );
 
     return {
@@ -151,7 +151,7 @@ export async function getAuthorPodcasts(
       views: totalViews,
     };
   } catch (error) {
-    console.error("Error getting author podcasts:", error);
+    console.error('Error getting author podcasts:', error);
   }
 }
 
@@ -162,18 +162,18 @@ export async function deletePodcast(podcastId: string, path: string) {
     // Find the podcast to get file URLs and user reference
     const podcast = await Podcast.findById(podcastId);
     if (!podcast) {
-      throw new Error("Podcast not found");
+      throw new Error('Podcast not found');
     }
 
     // Delete from Cloudinary - both image and audio
     const deletePromises = [];
 
     if (podcast.imageUrl) {
-      deletePromises.push(deleteMedia(podcast.imageUrl, "image"));
+      deletePromises.push(deleteMedia(podcast.imageUrl, 'image'));
     }
 
     if (podcast.audioUrl) {
-      deletePromises.push(deleteMedia(podcast.audioUrl, "video"));
+      deletePromises.push(deleteMedia(podcast.audioUrl, 'video'));
     }
 
     // Wait for all Cloudinary deletions to complete
@@ -183,7 +183,7 @@ export async function deletePodcast(podcastId: string, path: string) {
     await User.findByIdAndUpdate(
       podcast.userId,
       { $pull: { podcasts: podcast._id } },
-      { new: true },
+      { new: true }
     );
 
     // Delete the podcast itself
@@ -194,6 +194,6 @@ export async function deletePodcast(podcastId: string, path: string) {
 
     return { success: true };
   } catch (error) {
-    console.error("Error deleting podcast:", error);
+    console.error('Error deleting podcast:', error);
   }
 }

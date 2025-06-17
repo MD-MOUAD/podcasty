@@ -1,22 +1,22 @@
-import { TopPodcaster } from "@/lib/actions/shared.types";
-import { getTopPodcasters } from "@/lib/actions/user.actions";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import { TopPodcaster } from '@/lib/actions/shared.types';
+import { getTopPodcasters } from '@/lib/actions/user.actions';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
 
 const TopPodcasersSceleton = () => {
   return (
-    <div className="flex flex-col gap-6 max-h-[400px] w-full min-w-0 overflow-hidden">
+    <div className="flex max-h-[400px] w-full min-w-0 flex-col gap-6 overflow-hidden">
       {[1, 2, 3].map((i) => (
         <div
           key={i}
-          className="flex cursor-pointer justify-between items-center"
+          className="flex cursor-pointer items-center justify-between"
         >
           <div className="flex items-center gap-2">
-            <div className="aspect-square w-11 rounded-lg bg-gray-400 animate-pulse" />
-            <div className="h-2.5 w-28 rounded-lg bg-gray-400 animate-pulse" />
+            <div className="aspect-square w-11 animate-pulse rounded-lg bg-gray-400" />
+            <div className="h-2.5 w-28 animate-pulse rounded-lg bg-gray-400" />
           </div>
-          <div className="h-2.5 w-14 rounded-lg bg-gray-400 animate-pulse" />
+          <div className="h-2.5 w-14 animate-pulse rounded-lg bg-gray-400" />
         </div>
       ))}
     </div>
@@ -47,7 +47,7 @@ const TopPodcasters = () => {
     return <TopPodcasersSceleton />;
   }
   return (
-    <div className="flex flex-col gap-6 h-[400px] w-full min-w-0">
+    <div className="flex h-[400px] w-full min-w-0 flex-col gap-6">
       {topPodcasters?.slice(0, 3).map((podcaster) => (
         <div
           key={podcaster.clerkId as string}

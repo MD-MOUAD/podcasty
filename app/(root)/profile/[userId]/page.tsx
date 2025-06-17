@@ -1,10 +1,10 @@
-import EmptyState from "@/components/EmptyState";
-import LoaderSpinner from "@/components/LoaderSpinner";
-import PodcastCard from "@/components/PodcastCard";
-import ProfileCard from "@/components/ProfileCard";
-import { getAuthorPodcasts } from "@/lib/actions/podcast.actions";
-import { getUserById } from "@/lib/actions/user.actions";
-import { notFound } from "next/navigation";
+import EmptyState from '@/components/EmptyState';
+import LoaderSpinner from '@/components/LoaderSpinner';
+import PodcastCard from '@/components/PodcastCard';
+import ProfileCard from '@/components/ProfileCard';
+import { getAuthorPodcasts } from '@/lib/actions/podcast.actions';
+import { getUserById } from '@/lib/actions/user.actions';
+import { notFound } from 'next/navigation';
 
 const ProfilePage = async ({
   params,
@@ -31,7 +31,7 @@ const ProfilePage = async ({
             podcasts: podcastsData.podcasts,
             listeners: podcastsData.views,
           }}
-          imageUrl={user?.picture || "/images/default-user-profile.png"}
+          imageUrl={user?.picture || '/images/default-user-profile.png'}
           userFirstName={user?.name}
         />
       </div>

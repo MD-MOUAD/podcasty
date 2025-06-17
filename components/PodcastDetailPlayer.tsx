@@ -1,13 +1,13 @@
-"use client";
-import { IUser } from "@/lib/models/User";
-import { PodcastDetailPlayerProps } from "@/types";
-import React, { useState } from "react";
-import LoaderSpinner from "./LoaderSpinner";
-import Image from "next/image";
-import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/hooks/use-toast";
-import { useAudio } from "@/providers/AudioProvider";
+'use client';
+import { IUser } from '@/lib/models/User';
+import { PodcastDetailPlayerProps } from '@/types';
+import React, { useState } from 'react';
+import LoaderSpinner from './LoaderSpinner';
+import Image from 'next/image';
+import { Button } from './ui/button';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/use-toast';
+import { useAudio } from '@/providers/AudioProvider';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,8 +18,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "./ui/alert-dialog";
-import { deletePodcast } from "@/lib/actions/podcast.actions";
+} from './ui/alert-dialog';
+import { deletePodcast } from '@/lib/actions/podcast.actions';
 
 const PodcastDetailPlayer = ({
   podcast,
@@ -48,16 +48,16 @@ const PodcastDetailPlayer = ({
   const handleDelete = async () => {
     try {
       setIsDeleting(true);
-      await deletePodcast(podcast._id?.toString(), "/");
+      await deletePodcast(podcast._id?.toString(), '/');
       toast({
-        title: "Podcast deleted",
+        title: 'Podcast deleted',
       });
-      router.push("/");
+      router.push('/');
     } catch (error) {
-      console.error("Error deleting podcast", error);
+      console.error('Error deleting podcast', error);
       toast({
-        title: "Error deleting podcast",
-        variant: "destructive",
+        title: 'Error deleting podcast',
+        variant: 'destructive',
       });
     } finally {
       setIsDeleting(false);
@@ -106,7 +106,7 @@ const PodcastDetailPlayer = ({
               width={20}
               height={20}
               alt="random play"
-            />{" "}
+            />{' '}
             &nbsp; Play podcast
           </Button>
         </div>
@@ -122,9 +122,9 @@ const PodcastDetailPlayer = ({
             onClick={() => setIsOpen((prev) => !prev)}
           />
           {isOpen && (
-            <div className="absolute -left-32 -top-2 z-10  ">
+            <div className="absolute -left-32 -top-2 z-10">
               <AlertDialog>
-                <AlertDialogTrigger className="flex w-32 gap-2 cursor-pointer justify-center rounded-md bg-black-6 py-1.5 hover:bg-black-2">
+                <AlertDialogTrigger className="flex w-32 cursor-pointer justify-center gap-2 rounded-md bg-black-6 py-1.5 hover:bg-black-2">
                   <Image
                     src="/icons/delete.svg"
                     width={16}
@@ -133,7 +133,7 @@ const PodcastDetailPlayer = ({
                   />
                   <h2 className="text-16 font-normal text-white-1">Delete</h2>
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-black-2 border-white-1/5">
+                <AlertDialogContent className="border-white-1/5 bg-black-2">
                   <AlertDialogHeader>
                     <AlertDialogTitle className="text-white-1">
                       Are you absolutely sure?

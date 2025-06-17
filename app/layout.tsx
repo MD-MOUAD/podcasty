@@ -1,17 +1,17 @@
-import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
-import "./globals.css";
-import ClerkProvider from "@/providers/ClerkProvider";
-import AudioProvider from "@/providers/AudioProvider";
+import type { Metadata } from 'next';
+import { Manrope } from 'next/font/google';
+import './globals.css';
+import ClerkProvider from '@/providers/ClerkProvider';
+import AudioProvider from '@/providers/AudioProvider';
 
-const manrope = Manrope({ subsets: ["latin"] });
+const manrope = Manrope({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "Podcasty",
+  title: 'Podcasty',
   description:
-    "Podcasty lets you effortlessly generate engaging podcasts using AI. Turn ideas into audio content in seconds.",
+    'Podcasty lets you effortlessly generate engaging podcasts using AI. Turn ideas into audio content in seconds.',
   icons: {
-    icon: "/icons/logo.svg",
+    icon: '/icons/logo.svg',
   },
 };
 

@@ -1,4 +1,4 @@
-import { v2 as cloudinary } from "cloudinary";
+import { v2 as cloudinary } from 'cloudinary';
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -8,27 +8,27 @@ cloudinary.config({
 
 export const uploadMedia = async (
   fileBuffer: Buffer,
-  folder: "podcast-images" | "podcast-audio",
+  folder: 'podcast-images' | 'podcast-audio'
 ): Promise<string> => {
   return new Promise((resolve, reject) => {
-    const resourceType = folder === "podcast-audio" ? "video" : "image";
+    const resourceType = folder === 'podcast-audio' ? 'video' : 'image';
 
     const uploadStream = cloudinary.uploader.upload_stream(
       {
         folder,
         resource_type: resourceType,
         // For images: automatically optimize and format
-        ...(resourceType === "image"
+        ...(resourceType === 'image'
           ? {
-              quality: "auto",
-              fetch_format: "auto",
+              quality: 'auto',
+              fetch_format: 'auto',
             }
           : {}),
       },
       (error, result) => {
         if (error) reject(error);
         else resolve(result!.secure_url);
-      },
+      }
     );
 
     uploadStream.end(fileBuffer);
@@ -43,7 +43,7 @@ const extractPublicId = (url: string): string | null => {
 
 export const deleteMedia = async (
   url: string,
-  resourceType: "image" | "video" = "image",
+  resourceType: 'image' | 'video' = 'image'
 ) => {
   try {
     const publicId = extractPublicId(url);
@@ -54,7 +54,7 @@ export const deleteMedia = async (
     });
     return true;
   } catch (error) {
-    console.error("Error deleting media from Cloudinary:", error);
+    console.error('Error deleting media from Cloudinary:', error);
     throw error;
   }
 };

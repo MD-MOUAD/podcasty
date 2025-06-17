@@ -1,6 +1,6 @@
-import React from "react";
-import PodcastsSlider from "../PodcastsSlider";
-import { getTrendingPodcasts } from "@/lib/actions/podcast.actions";
+import React from 'react';
+import PodcastsSlider from '../PodcastsSlider';
+import { getTrendingPodcasts } from '@/lib/actions/podcast.actions';
 
 const TrendingPodcastsWrapper = async () => {
   const trendingPodcasts = await getTrendingPodcasts();

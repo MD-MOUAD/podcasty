@@ -1,4 +1,4 @@
-import { IUser } from "@/lib/models/User";
+import { IUser } from '@/lib/models/User';
 
 export interface CreateUserParams {
   clerkId: string;

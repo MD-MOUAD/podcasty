@@ -1,13 +1,13 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
-import { Input } from "./ui/input";
-import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-import { useDebounce } from "@/lib/useDebounce";
+import React, { useEffect, useState } from 'react';
+import { Input } from './ui/input';
+import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
+import { useDebounce } from '@/lib/useDebounce';
 
 const Searchbar = () => {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const router = useRouter();
   const pathname = usePathname();
 
@@ -16,8 +16,8 @@ const Searchbar = () => {
   useEffect(() => {
     if (debouncedValue) {
       router.push(`/discover?search=${debouncedValue}`);
-    } else if (!debouncedValue && pathname === "/discover")
-      router.push("/discover");
+    } else if (!debouncedValue && pathname === '/discover')
+      router.push('/discover');
   }, [router, pathname, debouncedValue]);
 
   return (
@@ -27,7 +27,7 @@ const Searchbar = () => {
         placeholder="Search for podcasts"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        onLoad={() => setSearch("")}
+        onLoad={() => setSearch('')}
       />
       <Image
         src="/icons/search.svg"

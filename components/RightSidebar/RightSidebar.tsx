@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils";
-import Header from "@/components/Header";
-import { useAudio } from "@/providers/AudioProvider";
-import UserAvatar from "./UserAvatar";
-import FansRecommendationCarousel from "./FansRecommendationCarousel";
-import TopPodcasters from "./TopPodcasters";
+import { cn } from '@/lib/utils';
+import Header from '@/components/Header';
+import { useAudio } from '@/providers/AudioProvider';
+import UserAvatar from './UserAvatar';
+import FansRecommendationCarousel from './FansRecommendationCarousel';
+import TopPodcasters from './TopPodcasters';
 
 const RightSidebar = () => {
   const { audio } = useAudio();
@@ -13,10 +13,10 @@ const RightSidebar = () => {
   return (
     <section
       className={cn(
-        "right_sidebar overflow-y-auto no-scrollbar h-[calc(100vh-5px)]",
+        'right_sidebar no-scrollbar h-[calc(100vh-5px)] overflow-y-auto',
         {
-          "h-[calc(100vh-120px)]": audio?.audioUrl,
-        },
+          'h-[calc(100vh-120px)]': audio?.audioUrl,
+        }
       )}
     >
       <UserAvatar />

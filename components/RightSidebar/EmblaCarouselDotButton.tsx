@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
-import { EmblaCarouselType } from "embla-carousel";
-import { cn } from "@/lib/utils";
+import { useCallback, useEffect, useState } from 'react';
+import { EmblaCarouselType } from 'embla-carousel';
+import { cn } from '@/lib/utils';
 
 type UseDotButtonType = {
   selectedIndex: number;
@@ -9,7 +9,7 @@ type UseDotButtonType = {
 };
 
 export const useDotButton = (
-  emblaApi: EmblaCarouselType | undefined,
+  emblaApi: EmblaCarouselType | undefined
 ): UseDotButtonType => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
@@ -19,7 +19,7 @@ export const useDotButton = (
       if (!emblaApi) return;
       emblaApi.scrollTo(index);
     },
-    [emblaApi],
+    [emblaApi]
   );
 
   const onInit = useCallback((emblaApi: EmblaCarouselType) => {
@@ -35,13 +35,13 @@ export const useDotButton = (
 
     onInit(emblaApi);
     onSelect(emblaApi);
-    emblaApi.on("reInit", onInit).on("reInit", onSelect).on("select", onSelect);
+    emblaApi.on('reInit', onInit).on('reInit', onSelect).on('select', onSelect);
 
     return () => {
       emblaApi
-        .off("reInit", onInit)
-        .off("reInit", onSelect)
-        .off("select", onSelect);
+        .off('reInit', onInit)
+        .off('reInit', onSelect)
+        .off('select', onSelect);
     };
   }, [emblaApi, onInit, onSelect]);
 
@@ -62,10 +62,10 @@ export const DotButton: React.FC<DotButtonProps> = ({ selected, onClick }) => {
       type="button"
       onClick={onClick}
       className={cn(
-        "size-2.5 bg-white-3 cursor-pointer transition-all duration-500 rounded-full",
+        'size-2.5 cursor-pointer rounded-full bg-white-3 transition-all duration-500',
         {
-          "bg-white-1": selected,
-        },
+          'bg-white-1': selected,
+        }
       )}
     />
   );

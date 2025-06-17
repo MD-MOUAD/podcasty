@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useRef, useState, useEffect } from "react";
-import { Slider } from "@/components/ui/slider";
-import { Play, Pause, Volume2, VolumeX } from "lucide-react";
+import { useRef, useState, useEffect } from 'react';
+import { Slider } from '@/components/ui/slider';
+import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
 
 interface AudioPlayerProps {
   src: string;
@@ -32,9 +32,9 @@ export default function PreviewAudioPlayer({
       onDurationChange(Math.floor(audio.duration));
     };
 
-    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+    audio.addEventListener('loadedmetadata', handleLoadedMetadata);
     return () => {
-      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
     };
   }, [src, onDurationChange]);
 
@@ -49,16 +49,16 @@ export default function PreviewAudioPlayer({
     };
     const handleEnd = () => setIsPlaying(false);
 
-    audio.addEventListener("timeupdate", updateTime);
-    audio.addEventListener("loadedmetadata", setAudioData);
-    audio.addEventListener("canplay", setAudioData);
-    audio.addEventListener("ended", handleEnd);
+    audio.addEventListener('timeupdate', updateTime);
+    audio.addEventListener('loadedmetadata', setAudioData);
+    audio.addEventListener('canplay', setAudioData);
+    audio.addEventListener('ended', handleEnd);
 
     return () => {
-      audio.removeEventListener("timeupdate", updateTime);
-      audio.removeEventListener("loadedmetadata", setAudioData);
-      audio.removeEventListener("canplay", setAudioData);
-      audio.removeEventListener("ended", handleEnd);
+      audio.removeEventListener('timeupdate', updateTime);
+      audio.removeEventListener('loadedmetadata', setAudioData);
+      audio.removeEventListener('canplay', setAudioData);
+      audio.removeEventListener('ended', handleEnd);
     };
   }, [src]);
 
@@ -104,18 +104,18 @@ export default function PreviewAudioPlayer({
     const m = Math.floor(seconds / 60);
     const s = Math.floor(seconds % 60)
       .toString()
-      .padStart(2, "0");
+      .padStart(2, '0');
     return `${m}:${s}`;
   };
 
   return (
     <div
-      className={`bg-black-5 p-4 rounded-xl flex flex-col gap-4 shadow-sm ${className}`}
+      className={`flex flex-col gap-4 rounded-xl bg-black-5 p-4 shadow-sm ${className}`}
     >
       <div className="flex items-center gap-4">
         <div
           onClick={togglePlayback}
-          className="h-10 w-10 shrink-0 flex items-center justify-center hover:cursor-pointer hover:bg-black-1/60 rounded-lg bg-black-3/20 transition-all duration-400"
+          className="duration-400 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-black-3/20 transition-all hover:cursor-pointer hover:bg-black-1/60"
         >
           {isPlaying ? (
             <Pause className="h-4 w-4" color="white" />
@@ -124,8 +124,8 @@ export default function PreviewAudioPlayer({
           )}
         </div>
 
-        <div className="flex-1 flex items-center gap-3">
-          <span className="text-sm text-gray-300 w-12 tabular-nums">
+        <div className="flex flex-1 items-center gap-3">
+          <span className="w-12 text-sm tabular-nums text-gray-300">
             {formatTime(currentTime)}
           </span>
           <Slider
@@ -136,7 +136,7 @@ export default function PreviewAudioPlayer({
             className="flex-1"
             disabled={!isReady}
           />
-          <span className="text-sm text-gray-300 w-12 tabular-nums">
+          <span className="w-12 text-sm tabular-nums text-gray-300">
             {formatTime(duration)}
           </span>
         </div>
@@ -144,7 +144,7 @@ export default function PreviewAudioPlayer({
 
       <div className="flex items-center gap-3 pl-14">
         <div
-          className="h-8 w-8 flex items-center justify-center hover:cursor-pointer hover:bg-black-1/10 rounded-md"
+          className="flex h-8 w-8 items-center justify-center rounded-md hover:cursor-pointer hover:bg-black-1/10"
           onClick={toggleMute}
         >
           {isMuted || volume === 0 ? (

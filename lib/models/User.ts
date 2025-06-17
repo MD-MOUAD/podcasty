@@ -1,4 +1,4 @@
-import mongoose, { Schema, Types, Document } from "mongoose";
+import mongoose, { Schema, Types, Document } from 'mongoose';
 
 export interface IUser extends Document {
   clerkId: string;
@@ -15,9 +15,9 @@ const UserSchema = new Schema<IUser>({
   name: { type: String, required: true },
   email: { type: String, required: true },
   picture: String,
-  podcasts: [{ type: Schema.Types.ObjectId, ref: "Podcast" }],
+  podcasts: [{ type: Schema.Types.ObjectId, ref: 'Podcast' }],
   createdAt: { type: Date, default: Date.now },
 });
 
-const User = mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
+const User = mongoose.models.User || mongoose.model<IUser>('User', UserSchema);
 export default User;

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 import {
   Select,
   SelectContent,
@@ -9,13 +9,13 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Slider } from "@/components/ui/slider";
-import Image from "next/image";
-import { VoiceActorSelectorProps } from "@/types";
-import PreviewAudioPlayer from "./PreviewAudioPlayer";
+} from '@/components/ui/select';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { Slider } from '@/components/ui/slider';
+import Image from 'next/image';
+import { VoiceActorSelectorProps } from '@/types';
+import PreviewAudioPlayer from './PreviewAudioPlayer';
 
 const VoiceActorSelector = ({
   voices,
@@ -29,14 +29,14 @@ const VoiceActorSelector = ({
     voices.find((voice) => voice.voice_id === selectedVoiceId) || voices[0];
   return (
     <div className="rounded-xl shadow-sm">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {/* Left Column - Voice Selection */}
         <div className="md:col-span-1">
           <div className="space-y-4">
             <div>
               <Label
                 htmlFor="voice-select"
-                className="block text-16 font-bold text-white-1 mb-3"
+                className="text-16 mb-3 block font-bold text-white-1"
               >
                 Select Voice Actor
               </Label>
@@ -54,7 +54,7 @@ const VoiceActorSelector = ({
                   <SelectGroup>
                     <SelectLabel>Arabic Voices</SelectLabel>
                     {voices
-                      .filter((voice) => voice.labels.language?.includes("ar"))
+                      .filter((voice) => voice.labels.language?.includes('ar'))
                       .map((voice) => (
                         <SelectItem key={voice.voice_id} value={voice.voice_id}>
                           {voice.name}
@@ -63,7 +63,7 @@ const VoiceActorSelector = ({
 
                     <SelectLabel>Other Languages</SelectLabel>
                     {voices
-                      .filter((voice) => !voice.labels.language?.includes("ar"))
+                      .filter((voice) => !voice.labels.language?.includes('ar'))
                       .map((voice) => (
                         <SelectItem key={voice.voice_id} value={voice.voice_id}>
                           {voice.name}
@@ -75,14 +75,14 @@ const VoiceActorSelector = ({
             </div>
 
             <Card className="card-class border border-gray-200">
-              <CardHeader className="p-4 border-b border-gray-200">
+              <CardHeader className="border-b border-gray-200 p-4">
                 <CardTitle className="text-lg font-semibold">
                   Voice Settings
                 </CardTitle>
               </CardHeader>
-              <CardContent className="p-4 space-y-6">
+              <CardContent className="space-y-6 p-4">
                 <div>
-                  <div className="flex justify-between items-center mb-2">
+                  <div className="mb-2 flex items-center justify-between">
                     <Label className="text-sm font-medium">Stability</Label>
                     <span className="text-sm text-gray-500">
                       {stability.toFixed(1)}
@@ -98,7 +98,7 @@ const VoiceActorSelector = ({
                 </div>
 
                 <div>
-                  <div className="flex justify-between items-center mb-2">
+                  <div className="mb-2 flex items-center justify-between">
                     <Label className="text-sm font-medium">Similarity</Label>
                     <span className="text-sm text-gray-500">
                       {similarity.toFixed(1)}
@@ -114,7 +114,7 @@ const VoiceActorSelector = ({
                 </div>
 
                 <div className="flex justify-center">
-                  <div className="w-full flex items-center justify-center cursor-pointer py-3 rounded-lg bg-white-1/85 text-black-1 hover:bg-white-1 transition-all duration-400">
+                  <div className="duration-400 flex w-full cursor-pointer items-center justify-center rounded-lg bg-white-1/85 py-3 text-black-1 transition-all hover:bg-white-1">
                     Apply Settings
                   </div>
                 </div>
@@ -125,64 +125,64 @@ const VoiceActorSelector = ({
 
         {/* Right Column - Voice Details */}
         <div className="md:col-span-2">
-          <Card className=" h-full card-class">
-            <CardHeader className="p-4 border-b border-gray-200">
+          <Card className="card-class h-full">
+            <CardHeader className="border-b border-gray-200 p-4">
               <CardTitle className="text-lg font-semibold">
                 {selectedVoice.name}
               </CardTitle>
             </CardHeader>
             <CardContent className="p-4">
-              <div className="flex flex-col md:flex-row gap-6">
-                <div className="md:w-2/3 space-y-4">
+              <div className="flex flex-col gap-6 md:flex-row">
+                <div className="space-y-4 md:w-2/3">
                   <div>
-                    <Label className="text-sm font-medium block mb-1">
+                    <Label className="mb-1 block text-sm font-medium">
                       Description
                     </Label>
                     <p className="text-gray-400">
-                      {selectedVoice.description || "No description available"}
+                      {selectedVoice.description || 'No description available'}
                     </p>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <Label className="text-sm font-medium block mb-1">
+                      <Label className="mb-1 block text-sm font-medium">
                         Gender
                       </Label>
                       <div className="text-gray-400">
-                        {selectedVoice.labels.gender || "N/A"}
+                        {selectedVoice.labels.gender || 'N/A'}
                       </div>
                     </div>
 
                     <div>
-                      <Label className="text-sm font-medium block mb-1">
+                      <Label className="mb-1 block text-sm font-medium">
                         Age
                       </Label>
                       <div className="text-gray-400">
-                        {selectedVoice.labels.age || "N/A"}
+                        {selectedVoice.labels.age || 'N/A'}
                       </div>
                     </div>
 
                     <div>
-                      <Label className="text-sm font-medium block mb-1">
+                      <Label className="mb-1 block text-sm font-medium">
                         Accent
                       </Label>
                       <div className="text-gray-400">
-                        {selectedVoice.labels.accent || "N/A"}
+                        {selectedVoice.labels.accent || 'N/A'}
                       </div>
                     </div>
 
                     <div>
-                      <Label className="text-sm font-medium block mb-1">
+                      <Label className="mb-1 block text-sm font-medium">
                         Use Case
                       </Label>
                       <div className="text-gray-400">
-                        {selectedVoice.labels.use_case || "N/A"}
+                        {selectedVoice.labels.use_case || 'N/A'}
                       </div>
                     </div>
                   </div>
 
                   <div className="pt-4">
-                    <Label className="text-sm font-medium block mb-2">
+                    <Label className="mb-2 block text-sm font-medium">
                       Preview
                     </Label>
                     <PreviewAudioPlayer src={selectedVoice.preview_url!} />
@@ -195,10 +195,10 @@ const VoiceActorSelector = ({
       </div>
 
       <div className="mt-6">
-        <h3 className="text-16 mb-3 font-semibold text-white-1 ">
+        <h3 className="text-16 mb-3 font-semibold text-white-1">
           Other Voice Actors
         </h3>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
           {voices
             .filter((voice) => voice.voice_id !== selectedVoiceId)
             .slice(0, 3)
@@ -210,7 +210,7 @@ const VoiceActorSelector = ({
               >
                 <CardContent className="p-4">
                   <div className="flex items-start gap-3">
-                    <div className="relative overflow-hidden rounded-xl flex-shrink-0">
+                    <div className="relative flex-shrink-0 overflow-hidden rounded-xl">
                       <Image
                         src="/images/voice-actor.png"
                         height={48}
@@ -221,11 +221,11 @@ const VoiceActorSelector = ({
                     </div>
                     <div>
                       <h4 className="font-medium">{voice.name}</h4>
-                      <p className="text-sm text-gray-300 line-clamp-1">
+                      <p className="line-clamp-1 text-sm text-gray-300">
                         {voice.labels.accent}, {voice.labels.language}
                       </p>
                       <div className="mt-2 flex items-center">
-                        <span className="text-xs bg-gray-700 text-cyan-100 px-2 py-1 rounded">
+                        <span className="rounded bg-gray-700 px-2 py-1 text-xs text-cyan-100">
                           {voice.labels.use_case}
                         </span>
                       </div>

@@ -1,6 +1,6 @@
-import mongoose, { Schema } from "mongoose";
-import { Types } from "mongoose";
-import { IUser } from "./User";
+import mongoose, { Schema } from 'mongoose';
+import { Types } from 'mongoose';
+import { IUser } from './User';
 
 export interface IPodcast {
   _id: Types.ObjectId;
@@ -26,11 +26,11 @@ const PodcastSchema = new Schema({
   authorClerkId: { type: String, required: true },
   views: { type: Number, default: 0 },
   duration: { type: Number, require: true },
-  userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   voiceId: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
 });
 
 const Podcast =
-  mongoose.models.Podcast || mongoose.model("Podcast", PodcastSchema);
+  mongoose.models.Podcast || mongoose.model('Podcast', PodcastSchema);
 export default Podcast;

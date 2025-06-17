@@ -1,8 +1,8 @@
-import Image from "next/image";
-import React from "react";
-import { Button } from "./ui/button";
-import Link from "next/link";
-import { EmptyStateProps } from "@/types";
+import Image from 'next/image';
+import React from 'react';
+import { Button } from './ui/button';
+import Link from 'next/link';
+import { EmptyStateProps } from '@/types';
 
 const EmptyState = ({
   title,
@@ -29,8 +29,8 @@ const EmptyState = ({
         )}
         {buttonLink && (
           <Button className="bg-orange-1">
-            <Link href={buttonLink} className="gap-1 flex items-center">
-              <div className="size-5 relative">
+            <Link href={buttonLink} className="flex items-center gap-1">
+              <div className="relative size-5">
                 <Image
                   src="/icons/discover.svg"
                   fill

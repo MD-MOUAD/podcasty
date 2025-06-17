@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useEffect, useRef, useState } from "react";
-import { Loader } from "lucide-react";
-import { Input } from "./ui/input";
-import Image from "next/image";
-import { useToast } from "@/hooks/use-toast";
-import { GenerateThumbnailProps } from "@/types";
+import { useEffect, useRef, useState } from 'react';
+import { Loader } from 'lucide-react';
+import { Input } from './ui/input';
+import Image from 'next/image';
+import { useToast } from '@/hooks/use-toast';
+import { GenerateThumbnailProps } from '@/types';
 
 const GeneratePodcastThumbnail = ({ setImage }: GenerateThumbnailProps) => {
   const [isImageLoading, setIsImageLoading] = useState(false);
@@ -21,27 +21,27 @@ const GeneratePodcastThumbnail = ({ setImage }: GenerateThumbnailProps) => {
     try {
       const files = e.target.files;
       if (!files || files.length === 0) {
-        throw new Error("No file selected");
+        throw new Error('No file selected');
       }
 
       const file = files[0];
 
       // Validate file type
       const validTypes = [
-        "image/svg+xml",
-        "image/png",
-        "image/jpeg",
-        "image/gif",
+        'image/svg+xml',
+        'image/png',
+        'image/jpeg',
+        'image/gif',
       ];
       if (!validTypes.includes(file.type)) {
         throw new Error(
-          "Invalid file type. Please upload SVG, PNG, JPG, or GIF.",
+          'Invalid file type. Please upload SVG, PNG, JPG, or GIF.'
         );
       }
 
       // Validate file size (e.g., 5MB limit)
       if (file.size > 5 * 1024 * 1024) {
-        throw new Error("File size too large. Max 5MB allowed.");
+        throw new Error('File size too large. Max 5MB allowed.');
       }
 
       setImage(file);
@@ -51,20 +51,20 @@ const GeneratePodcastThumbnail = ({ setImage }: GenerateThumbnailProps) => {
       setPreviewUrl(url);
 
       toast({
-        title: "Success!",
-        description: "Image selected successfully",
+        title: 'Success!',
+        description: 'Image selected successfully',
       });
     } catch (error) {
       console.error(error);
       toast({
-        title: "Upload Failed",
+        title: 'Upload Failed',
         description:
-          error instanceof Error ? error.message : "Failed to select image",
-        variant: "destructive",
+          error instanceof Error ? error.message : 'Failed to select image',
+        variant: 'destructive',
       });
       // Clear the input on error
       if (imageRef.current) {
-        imageRef.current.value = "";
+        imageRef.current.value = '';
       }
     } finally {
       setIsImageLoading(false);
@@ -83,7 +83,7 @@ const GeneratePodcastThumbnail = ({ setImage }: GenerateThumbnailProps) => {
   return (
     <div className="space-y-4">
       <div
-        className="image_div cursor-pointer flex flex-col items-center justify-center gap-2 p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-orange-500 transition-colors"
+        className="image_div flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-gray-300 p-4 transition-colors hover:border-orange-500"
         onClick={() => imageRef?.current?.click()}
       >
         <Input
@@ -103,7 +103,7 @@ const GeneratePodcastThumbnail = ({ setImage }: GenerateThumbnailProps) => {
         ) : (
           <div className="text-16 flex-center font-medium text-white-1">
             Processing
-            <Loader size={20} className="animate-spin ml-2" />
+            <Loader size={20} className="ml-2 animate-spin" />
           </div>
         )}
         <div className="flex flex-col items-center gap-1">

@@ -1,7 +1,7 @@
-import { getTrendingPodcasts } from "@/lib/actions/podcast.actions";
-import { IPodcast } from "@/lib/models/Podcast";
-import React from "react";
-import PodcastCard from "@/components/PodcastCard";
+import { getTrendingPodcasts } from '@/lib/actions/podcast.actions';
+import { IPodcast } from '@/lib/models/Podcast';
+import React from 'react';
+import PodcastCard from '@/components/PodcastCard';
 
 const PopularPodcastsGrid = async () => {
   const data = await getTrendingPodcasts(20);

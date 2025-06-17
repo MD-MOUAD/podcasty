@@ -1,8 +1,8 @@
-"use client";
-import { incrementPodcastViews } from "@/lib/actions/podcast.actions";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import React from "react";
+'use client';
+import { incrementPodcastViews } from '@/lib/actions/podcast.actions';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import React from 'react';
 
 interface PodcastCardProps {
   imgUrl: string;
@@ -32,7 +32,7 @@ const PodcastCard = ({
     <div
       className={`cursor-pointer ${
         insideFlexContainer &&
-        "max-w-[140px] md:max-w-[160px] lg:max-w-[180px] xl:max-w-[190px] 2xl:max-w-[200px]"
+        'max-w-[140px] md:max-w-[160px] lg:max-w-[180px] xl:max-w-[190px] 2xl:max-w-[200px]'
       }`}
       onClick={handleViews}
     >
@@ -42,7 +42,7 @@ const PodcastCard = ({
           width={174}
           height={174}
           alt={title}
-          className="aspect-square h-fit w-full rounded-xl 2xl:size-[200px] object-cover object-center"
+          className="aspect-square h-fit w-full rounded-xl object-cover object-center 2xl:size-[200px]"
         />
         <div className="flex flex-col 2xl:max-w-[200px]">
           <h1 className="text-16 truncate font-bold text-white-1">{title}</h1>

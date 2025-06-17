@@ -1,6 +1,6 @@
-import { TopPodcaster } from "@/lib/actions/shared.types";
-import { IPodcast } from "@/lib/models/Podcast";
-import { Dispatch, SetStateAction } from "react";
+import { TopPodcaster } from '@/lib/actions/shared.types';
+import { IPodcast } from '@/lib/models/Podcast';
+import { Dispatch, SetStateAction } from 'react';
 
 export interface VoiceActor {
   voice_id: string;

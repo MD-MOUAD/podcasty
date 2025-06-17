@@ -1,9 +1,9 @@
-import EmptyState from "@/components/EmptyState";
-import PodcastDetailPlayer from "@/components/PodcastDetailPlayer";
-import { getPodcastById } from "@/lib/actions/podcast.actions";
-import { auth } from "@clerk/nextjs/server";
-import Image from "next/image";
-import PodcastNotFound from "./_components/PodcastNotFound";
+import EmptyState from '@/components/EmptyState';
+import PodcastDetailPlayer from '@/components/PodcastDetailPlayer';
+import { getPodcastById } from '@/lib/actions/podcast.actions';
+import { auth } from '@clerk/nextjs/server';
+import Image from 'next/image';
+import PodcastNotFound from './_components/PodcastNotFound';
 
 const PodcastDetails = async ({
   params,
@@ -42,14 +42,14 @@ const PodcastDetails = async ({
         podcast={JSON.parse(JSON.stringify(podcast))} //
       />
 
-      <p className="text-white-2 text-16 pb-8 pt-[45px] font-medium max-md:text-center">
+      <p className="text-16 pb-8 pt-[45px] font-medium text-white-2 max-md:text-center">
         {podcast?.description}
       </p>
 
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <h1 className="text-18 font-bold text-white-1">Transcription</h1>
-          {podcast?.content?.split("\n").map((line, idx) => (
+          {podcast?.content?.split('\n').map((line, idx) => (
             <p className="text-16 font-medium text-white-2" key={idx}>
               {line}
             </p>

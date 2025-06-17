@@ -1,10 +1,10 @@
-import Autoplay from "embla-carousel-autoplay";
-import useEmblaCarousel from "embla-carousel-react";
-import { CarouselProps } from "@/types";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
-import { TopPodcaster } from "@/lib/actions/shared.types";
-import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
+import Autoplay from 'embla-carousel-autoplay';
+import useEmblaCarousel from 'embla-carousel-react';
+import { CarouselProps } from '@/types';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { TopPodcaster } from '@/lib/actions/shared.types';
+import { DotButton, useDotButton } from './EmblaCarouselDotButton';
 
 const Carousel = ({ fansLikeDetail }: CarouselProps) => {
   const router = useRouter();
@@ -17,19 +17,19 @@ const Carousel = ({ fansLikeDetail }: CarouselProps) => {
     useDotButton(emblaApi);
 
   const slides = fansLikeDetail?.filter(
-    (item: TopPodcaster) => item.podcastCount > 0,
+    (item: TopPodcaster) => item.podcastCount > 0
   );
 
   return (
     <section
-      className="flex w-full flex-col gap-4 overflow-hidden min-h-[276px]"
+      className="flex min-h-[276px] w-full flex-col gap-4 overflow-hidden"
       ref={emblaRef}
     >
       <div className="flex w-full">
         {slides.slice(0, 5).map((item) => (
           <figure
             key={item.clerkId}
-            className="carousel_box flex-[0_0_100%] min-w-0" // Important for slide sizing
+            className="carousel_box min-w-0 flex-[0_0_100%]" // Important for slide sizing
             onClick={() => router.push(`/podcasts/${item.latestPodcast?._id}`)}
           >
             <Image

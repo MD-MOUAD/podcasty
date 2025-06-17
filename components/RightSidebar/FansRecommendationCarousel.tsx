@@ -1,13 +1,13 @@
-import { TopPodcaster } from "@/lib/actions/shared.types";
-import { getTopPodcasters } from "@/lib/actions/user.actions";
-import { useState, useEffect } from "react";
-import Carousel from "@/components/RightSidebar/Carousel";
+import { TopPodcaster } from '@/lib/actions/shared.types';
+import { getTopPodcasters } from '@/lib/actions/user.actions';
+import { useState, useEffect } from 'react';
+import Carousel from '@/components/RightSidebar/Carousel';
 
 export const FansCarouselSkeleton = () => {
   return (
-    <div className="flex w-full h-[276px] flex-col gap-4 items-center">
-      <div className="w-full aspect-square rounded-lg bg-gray-400 animate-pulse" />
-      <div className="bg-gray-400 animate-pulse h-2.5 w-20 rounded" />
+    <div className="flex h-[276px] w-full flex-col items-center gap-4">
+      <div className="aspect-square w-full animate-pulse rounded-lg bg-gray-400" />
+      <div className="h-2.5 w-20 animate-pulse rounded bg-gray-400" />
     </div>
   );
 };

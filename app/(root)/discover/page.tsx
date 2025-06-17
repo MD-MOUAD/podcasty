@@ -1,8 +1,8 @@
-import EmptyState from "@/components/EmptyState";
-import LoaderSpinner from "@/components/LoaderSpinner";
-import PodcastCard from "@/components/PodcastCard";
-import Searchbar from "@/components/Searchbar";
-import { getTrendingPodcasts } from "@/lib/actions/podcast.actions";
+import EmptyState from '@/components/EmptyState';
+import LoaderSpinner from '@/components/LoaderSpinner';
+import PodcastCard from '@/components/PodcastCard';
+import Searchbar from '@/components/Searchbar';
+import { getTrendingPodcasts } from '@/lib/actions/podcast.actions';
 
 const Discover = async ({
   searchParams: { search },
@@ -16,7 +16,7 @@ const Discover = async ({
       <Searchbar />
       <div className="flex flex-col gap-9">
         <h1 className="text-20 font-bold text-white-1">
-          {!search ? "Discover Trending Podcasts" : "Search results for "}
+          {!search ? 'Discover Trending Podcasts' : 'Search results for '}
           {search && <span className="text-white-2">{search}</span>}
         </h1>
         {podcastsData ? (

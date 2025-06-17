@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 let isConnected: boolean = false;
 
@@ -7,7 +7,7 @@ export const connectToDatabase = async () => {
 
   if (!MONGODB_URI) {
     throw new Error(
-      "Please define the MONGODB_URI environment variable inside .env.local",
+      'Please define the MONGODB_URI environment variable inside .env.local'
     );
   }
 
@@ -16,9 +16,9 @@ export const connectToDatabase = async () => {
   }
 
   try {
-    await mongoose.connect(MONGODB_URI, { dbName: "podcasty" });
+    await mongoose.connect(MONGODB_URI, { dbName: 'podcasty' });
     isConnected = true;
-    console.log("MongoDB is connected");
+    console.log('MongoDB is connected');
   } catch (error) {
     console.log(error);
   }

@@ -1,10 +1,10 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function NotFound() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-black to-gray-900 text-white p-6">
-      <div className="max-w-md w-full text-center">
+    <div className="from-black text-white flex min-h-screen flex-col items-center justify-center bg-gradient-to-b to-gray-900 p-6">
+      <div className="w-full max-w-md text-center">
         {/* Logo */}
         <div className="mb-8 flex justify-center">
           <Image
@@ -15,26 +15,26 @@ export default function NotFound() {
           />
         </div>
 
-        <h1 className="text-6xl font-bold mb-4 text-white-1">404</h1>
-        <h2 className="text-2xl font-semibold mb-6 text-white-1">
+        <h1 className="mb-4 text-6xl font-bold text-white-1">404</h1>
+        <h2 className="mb-6 text-2xl font-semibold text-white-1">
           Page Not Found
         </h2>
 
-        <p className="text-gray-300 mb-8">
+        <p className="mb-8 text-gray-300">
           The page you&apos;re looking for doesn&apos;t exist or may have been
           moved.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col justify-center gap-4 sm:flex-row">
           <Link
             href="/"
-            className="bg-orange-1/80 hover:bg-orange-1 text-white-1 font-medium py-3 px-6 rounded-full transition-colors"
+            className="rounded-full bg-orange-1/80 px-6 py-3 font-medium text-white-1 transition-colors hover:bg-orange-1"
           >
             Return Home
           </Link>
           <Link
             href="/discover"
-            className="bg-transparent hover:bg-white-1/10 text-white-1 font-medium py-3 px-6 rounded-full border border-white-1/30 transition-colors"
+            className="rounded-full border border-white-1/30 bg-transparent px-6 py-3 font-medium text-white-1 transition-colors hover:bg-white-1/10"
           >
             Discover Podcasts
           </Link>

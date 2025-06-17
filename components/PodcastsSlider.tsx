@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import React, { useEffect, useRef, useState } from "react";
-import { Button } from "./ui/button";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { IPodcast } from "@/lib/models/Podcast";
-import PodcastCard from "./PodcastCard";
+import React, { useEffect, useRef, useState } from 'react';
+import { Button } from './ui/button';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { IPodcast } from '@/lib/models/Podcast';
+import PodcastCard from './PodcastCard';
 
 const PodcastsSlider = ({ podcasts }: { podcasts: IPodcast[] }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -37,13 +37,13 @@ const PodcastsSlider = ({ podcasts }: { podcasts: IPodcast[] }) => {
     const container = containerRef.current;
     if (container) {
       resizeObserver.observe(container);
-      container.addEventListener("scroll", updateScrollButtons);
+      container.addEventListener('scroll', updateScrollButtons);
     }
 
     return () => {
       if (container) {
         resizeObserver.unobserve(container);
-        container.removeEventListener("scroll", updateScrollButtons);
+        container.removeEventListener('scroll', updateScrollButtons);
       }
     };
   }, []);
@@ -52,7 +52,7 @@ const PodcastsSlider = ({ podcasts }: { podcasts: IPodcast[] }) => {
     if (containerRef.current) {
       containerRef.current.scrollBy({
         left: direction * scrollAmount,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
     }
   };
@@ -62,14 +62,14 @@ const PodcastsSlider = ({ podcasts }: { podcasts: IPodcast[] }) => {
       {canScrollLeft && (
         <Button
           onClick={() => scrollPodcasts(-1)}
-          className="absolute -left-0 top-1/2 -translate-y-1/2 z-10 hidden size-12 items-center justify-center rounded-full bg-white-1/40 hover:bg-white-1/60 text-white sm:flex"
+          className="text-white absolute -left-0 top-1/2 z-10 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full bg-white-1/40 hover:bg-white-1/60 sm:flex"
         >
           <ChevronLeft />
         </Button>
       )}
       <div
         ref={containerRef}
-        className="flex gap-2 md:gap-8 lg:gap-10 xl:gap-12 no-scrollbar overflow-x-auto"
+        className="no-scrollbar flex gap-2 overflow-x-auto md:gap-8 lg:gap-10 xl:gap-12"
       >
         {podcasts?.map(({ _id, title, description, imageUrl }) => (
           <PodcastCard
@@ -86,7 +86,7 @@ const PodcastsSlider = ({ podcasts }: { podcasts: IPodcast[] }) => {
       {canScrollRight && (
         <Button
           onClick={() => scrollPodcasts(1)}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 hidden size-12 items-center justify-center rounded-full bg-white-1/40 hover:bg-white-1/60 text-white sm:flex"
+          className="text-white absolute right-0 top-1/2 z-10 hidden size-12 -translate-y-1/2 items-center justify-center rounded-full bg-white-1/40 hover:bg-white-1/60 sm:flex"
         >
           <ChevronRight />
         </Button>
