@@ -1,36 +1,181 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Podcasty - Podcast Streaming Application
 
-## Getting Started
+![Podcasty Banner](https://public/images/banner.png)
 
-First, run the development server:
+Podcasty is a modern podcast streaming platform that allows users to discover, listen to, and share their favorite podcasts. The app includes a powerful text-to-speech functionality, allowing users to convert written text into fully playable podcast episodes.
+Built with cutting-edge technologies like Next.js, MongoDB, and Cloudinary, Podcasty offers a seamless and engaging listening experience with robust features like audio playback, podcast management, text-to-speech conversion, and user profiles.
+
+---
+
+## 🚀 Features
+
+### 🎙️ Core Features
+
+- User authentication with Clerk
+- Text-to-speech conversion for generating podcasts from text
+- Podcast streaming with a custom audio player
+- Podcast creation, editing, and deletion
+- User profiles with listening history
+- Fully responsive design
+
+### 🎧 Audio Features
+
+- Custom audio player controls
+- Background audio persistence
+
+### 📱 Content Management
+
+- Upload podcasts with images and audio
+- Edit podcast details and metadata
+- Delete podcasts (with Cloudinary media cleanup)
+- View podcast analytics (plays, duration)
+
+---
+
+## 🛠 Technologies Used
+
+### Frontend
+
+- [Next.js 14 (App Router)](https://nextjs.org/)
+- [React 18](https://reactjs.org/)
+- TypeScript
+- Tailwind CSS
+- [shadcn/ui](https://ui.shadcn.com/)
+- Zod (form validation)
+
+### Backend
+
+- Next.js API Routes with server actions
+- Mongoose (MongoDB ODM)
+- Cloudinary (media storage)
+- Clerk (authentication)
+
+### Database
+
+- MongoDB (via MongoDB Atlas)
+
+---
+
+## ⚙️ Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- MongoDB Atlas account
+- Cloudinary account
+- Clerk account
+
+### Installation
+
+1. **Clone the repository:**
+
+```bash
+git clone https://github.com/MD-MOUAD/podcasty.git
+cd podcasty
+```
+
+2. **Install dependencies:**
+
+```bash
+npm install
+```
+
+3. **Set up environment variables:**
+   Create a `.env.local` file in the root directory with the following:
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+CLERK_SECRET_KEY=your_clerk_secret_key
+CLERK_WEBHOOK_SIGNING_SECRET
+NEXT_PUBLIC_CLERK_FRONTEND_API_URL
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
+
+ELEVENLABS_API_KEY=your_text_to_speech_api
+```
+
+4. **Run the development server:**
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📁 Project Structure
 
-## Learn More
+```
+podcasty/
+├── app/
+│   ├── (auth)/               # Authentication routes
+│   ├── (root)/               # Main application routes
+│   └── api/                  # API routes
+├── components/               # Reusable components
+├── constants/                # Application constants
+├── hooks/                    # Custom React hooks
+├── lib/
+│   ├── actions/              # Server actions
+│   ├── models/               # Database models
+│   └── utils                 # Helper functions
+├── providers/                # Context providers
+├── public/                   # Static assets
+└── types/                    # TypeScript type definitions
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔌 API Endpoints
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Test-To-Speech
 
-## Deploy on Vercel
+- `POST /api/tts` - post get ai audio from text prompt
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🚀 Deployment
+
+You can deploy Podcasty on [Vercel](https://vercel.com/) with ease:
+
+Live App: [https://podcasty-rust.vercel.app](https://podcasty-rust.vercel.app)
+
+1. Push your code to GitHub
+2. Create a new project on Vercel
+3. Connect your GitHub repository
+4. Add your environment variables in the Vercel dashboard
+5. Click **Deploy**
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/import)
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions from the community!
+
+1. Fork the repository
+2. Create a new branch: `git checkout -b feature/your-feature`
+3. Commit your changes: `git commit -m 'Add some feature'`
+4. Push to your branch: `git push origin feature/your-feature`
+5. Open a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+---
+
+## 📬 Contact
+
+**Mouad Khanouch**
+Email: [mouadmouadkhanouch@gmail.com](mailto:mouadmouadkhanouch@gmail.com)
+GitHub: [https://github.com/MD-MOUAD/podcasty](https://github.com/MD-MOUAD/podcasty)

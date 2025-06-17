@@ -88,7 +88,8 @@ export const getTrendingPodcasts = async (
       createdAt: { $gte: oneWeekAgo },
     })
       .sort({ views: -1 })
-      .limit(limit);
+      .limit(limit)
+      .populate('userId', 'name picture clerkId');
 
     return trendingPodcasts;
   } catch (error) {
