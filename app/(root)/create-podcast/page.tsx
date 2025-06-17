@@ -39,7 +39,7 @@ const formSchema = z.object({
 const CreatePodcast = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedVoiceId, setSelectedVoiceId] = useState<string>(
-    voiceData[0]?.voice_id || ""
+    voiceData[0]?.voice_id || "",
   );
   const [podcastContent, setPodcastContent] = useState("");
   const [previewUrl, setPreviewUrl] = useState("");
@@ -117,7 +117,7 @@ const CreatePodcast = () => {
         imageBase64,
         selectedVoiceId,
         duration,
-        "/"
+        "/",
       );
 
       if (result.success) {

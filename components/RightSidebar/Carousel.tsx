@@ -17,7 +17,7 @@ const Carousel = ({ fansLikeDetail }: CarouselProps) => {
     useDotButton(emblaApi);
 
   const slides = fansLikeDetail?.filter(
-    (item: TopPodcaster) => item.podcastCount > 0
+    (item: TopPodcaster) => item.podcastCount > 0,
   );
 
   return (

@@ -17,7 +17,7 @@ export const createPodcast = async (
   imageBase64: string,
   voiceId: string,
   duration: number,
-  path: string
+  path: string,
 ): Promise<{ success: boolean; podcastId?: string; error?: string }> => {
   try {
     const { userId: clerkId } = await auth();
@@ -77,7 +77,7 @@ export const createPodcast = async (
 };
 
 export const getTrendingPodcasts = async (
-  limit: number = 12
+  limit: number = 12,
 ): Promise<IPodcast[]> => {
   try {
     await connectToDatabase();
@@ -98,7 +98,7 @@ export const getTrendingPodcasts = async (
 };
 
 export const getPodcastById = async (
-  podcastId: string
+  podcastId: string,
 ): Promise<IPodcast | null> => {
   try {
     await connectToDatabase();
@@ -120,12 +120,12 @@ export async function incrementPodcastViews(podcastId: string) {
   await Podcast.findByIdAndUpdate(
     podcastId,
     { $inc: { views: 1 } },
-    { new: true }
+    { new: true },
   );
 }
 
 export async function getAuthorPodcasts(
-  clerkId: string
+  clerkId: string,
 ): Promise<AuthorPodcastsResponse | undefined> {
   try {
     await connectToDatabase();
@@ -143,7 +143,7 @@ export async function getAuthorPodcasts(
     // Calculate total views across all podcasts
     const totalViews = podcasts.reduce(
       (sum, podcast) => sum + (podcast.views || 0),
-      0
+      0,
     );
 
     return {
@@ -183,7 +183,7 @@ export async function deletePodcast(podcastId: string, path: string) {
     await User.findByIdAndUpdate(
       podcast.userId,
       { $pull: { podcasts: podcast._id } },
-      { new: true }
+      { new: true },
     );
 
     // Delete the podcast itself

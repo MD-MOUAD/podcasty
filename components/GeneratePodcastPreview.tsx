@@ -73,7 +73,7 @@ const GeneratePodcastPreview = ({
         const errorData = await response.json().catch(() => ({}));
         throw new Error(
           errorData.message ||
-            `API request failed with status ${response.status}`
+            `API request failed with status ${response.status}`,
         );
       }
 
@@ -166,8 +166,8 @@ const GeneratePodcastPreview = ({
             isValid && !hasGenerated
               ? "Generate audio preview"
               : hasGenerated
-              ? "Audio already generated"
-              : "Enter valid text to enable generation"
+                ? "Audio already generated"
+                : "Enter valid text to enable generation"
           }
         >
           {isGenerating ? (

@@ -16,7 +16,7 @@ const RightSidebar = () => {
         "right_sidebar overflow-y-auto no-scrollbar h-[calc(100vh-5px)]",
         {
           "h-[calc(100vh-120px)]": audio?.audioUrl,
-        }
+        },
       )}
     >
       <UserAvatar />

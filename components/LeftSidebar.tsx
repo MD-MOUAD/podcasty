@@ -42,7 +42,7 @@ const LeftSidebar = () => {
                 {
                   "rounded-[4px] border-r-4 border-orange-1 bg-nav-focus opacity-100":
                     isActive,
-                }
+                },
               )}
             >
               <Icon isActive={isActive} width={24} height={24} />

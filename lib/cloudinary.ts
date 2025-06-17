@@ -8,7 +8,7 @@ cloudinary.config({
 
 export const uploadMedia = async (
   fileBuffer: Buffer,
-  folder: "podcast-images" | "podcast-audio"
+  folder: "podcast-images" | "podcast-audio",
 ): Promise<string> => {
   return new Promise((resolve, reject) => {
     const resourceType = folder === "podcast-audio" ? "video" : "image";
@@ -28,7 +28,7 @@ export const uploadMedia = async (
       (error, result) => {
         if (error) reject(error);
         else resolve(result!.secure_url);
-      }
+      },
     );
 
     uploadStream.end(fileBuffer);
@@ -43,7 +43,7 @@ const extractPublicId = (url: string): string | null => {
 
 export const deleteMedia = async (
   url: string,
-  resourceType: "image" | "video" = "image"
+  resourceType: "image" | "video" = "image",
 ) => {
   try {
     const publicId = extractPublicId(url);

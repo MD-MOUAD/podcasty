@@ -40,7 +40,7 @@ const PodcastPlayer = () => {
       if (audioElement && audio?.audioUrl) {
         localStorage.setItem(
           `podcastPosition_${audio.audioUrl}`,
-          audioElement.currentTime.toString()
+          audioElement.currentTime.toString(),
         );
       }
     };
@@ -131,7 +131,7 @@ const PodcastPlayer = () => {
       const handleLoaded = async () => {
         // Load saved position if available
         const savedPosition = localStorage.getItem(
-          `podcastPosition_${audio.audioUrl}`
+          `podcastPosition_${audio.audioUrl}`,
         );
         const startTime = savedPosition ? parseFloat(savedPosition) : 0;
 
@@ -219,7 +219,7 @@ const PodcastPlayer = () => {
         {
           hidden: !audio?.audioUrl || audio?.audioUrl === "" || !isVisible,
           "translate-y-0": isVisible && audio?.audioUrl && audio?.audioUrl,
-        }
+        },
       )}
     >
       {/* Progress Bar */}

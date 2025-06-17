@@ -35,7 +35,7 @@ const GeneratePodcastThumbnail = ({ setImage }: GenerateThumbnailProps) => {
       ];
       if (!validTypes.includes(file.type)) {
         throw new Error(
-          "Invalid file type. Please upload SVG, PNG, JPG, or GIF."
+          "Invalid file type. Please upload SVG, PNG, JPG, or GIF.",
         );
       }
 

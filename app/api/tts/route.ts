@@ -28,13 +28,13 @@ export async function POST(req: Request) {
           similarity_boost: 0.5,
         },
       }),
-    }
+    },
   );
 
   if (!response.ok) {
     return NextResponse.json(
       { error: "Failed to fetch audio" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 

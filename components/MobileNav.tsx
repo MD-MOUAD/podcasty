@@ -58,7 +58,7 @@ const MobileNav = () => {
                             {
                               "bg-nav-focus border-r-4 border-orange-1":
                                 isActive,
-                            }
+                            },
                           )}
                         >
                           <Icon isActive={isActive} width={24} height={24} />
