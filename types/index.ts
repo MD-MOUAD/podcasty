@@ -27,6 +27,7 @@ export interface GeneratePodcastPreviewProps {
   previewUrl: string;
   setPreviewUrl: Dispatch<SetStateAction<string>>;
   setAudioBlob: Dispatch<SetStateAction<Blob | null>>;
+  setDuration: Dispatch<SetStateAction<number>>;
 }
 
 export interface GenerateThumbnailProps {

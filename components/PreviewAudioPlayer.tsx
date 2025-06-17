@@ -7,11 +7,13 @@ import { Play, Pause, Volume2, VolumeX } from "lucide-react";
 interface AudioPlayerProps {
   src: string;
   className?: string;
+  onDurationChange?: (duration: number) => void;
 }
 
 export default function PreviewAudioPlayer({
   src,
   className,
+  onDurationChange,
 }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -20,6 +22,21 @@ export default function PreviewAudioPlayer({
   const [volume, setVolume] = useState(0.7);
   const [isMuted, setIsMuted] = useState(false);
   const [isReady, setIsReady] = useState(false);
+
+  // Handle duration reporting
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio || !onDurationChange) return;
+
+    const handleLoadedMetadata = () => {
+      onDurationChange(Math.floor(audio.duration));
+    };
+
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+    return () => {
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+    };
+  }, [src, onDurationChange]);
 
   useEffect(() => {
     const audio = audioRef.current;

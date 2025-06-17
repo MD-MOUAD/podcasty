@@ -99,7 +99,7 @@ const PodcastDetailPlayer = ({
         <div className="relative mt-2">
           <Image
             src="/icons/three-dots.svg"
-            width={20}
+            width={26}
             height={30}
             alt="Three dots icon"
             className="cursor-pointer"

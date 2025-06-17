@@ -46,6 +46,7 @@ const CreatePodcast = () => {
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
 
   const [imageBlob, setImageBlob] = useState<Blob | null>(null);
+  const [duration, setDuration] = useState<number>(0);
 
   const { toast } = useToast();
   const router = useRouter();
@@ -115,6 +116,7 @@ const CreatePodcast = () => {
         audioBase64,
         imageBase64,
         selectedVoiceId,
+        duration,
         "/"
       );
 
@@ -206,6 +208,7 @@ const CreatePodcast = () => {
               previewUrl={previewUrl}
               setPreviewUrl={setPreviewUrl}
               setAudioBlob={setAudioBlob}
+              setDuration={setDuration}
             />
             <GeneratePodcastThumbnail setImage={setImageBlob} />
 

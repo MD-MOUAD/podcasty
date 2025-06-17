@@ -13,6 +13,7 @@ const GeneratePodcastPreview = ({
   previewUrl,
   setPreviewUrl,
   setAudioBlob,
+  setDuration,
 }: GeneratePodcastPreviewProps) => {
   const [voicePrompt, setVoicePrompt] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
@@ -181,7 +182,9 @@ const GeneratePodcastPreview = ({
       </div>
 
       <div className="mt-5 max-w-[600px]">
-        {previewUrl && <PreviewAudioPlayer src={previewUrl} />}
+        {previewUrl && (
+          <PreviewAudioPlayer src={previewUrl} onDurationChange={setDuration} />
+        )}
       </div>
     </div>
   );

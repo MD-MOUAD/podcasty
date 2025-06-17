@@ -1,3 +1,8 @@
+import Header from "@/components/Header";
+import LatestPodcastsSkeleton from "@/components/HomePage/LatestPodcastsSkeleton";
+import LatestPodcastsWrapper from "@/components/HomePage/LatestPodcastsWrapper";
+import PodcastsGridSkeleton from "@/components/HomePage/PodcastsGridSkeleton";
+import PopularPodcastsGrid from "@/components/HomePage/PopularPodcastsGrid";
 import TrendingPodcastsSkeleton from "@/components/HomePage/TrendingPodcastsSkeleton";
 import TrendingPodcastsWrapper from "@/components/HomePage/TrendingPodcastsWrapper";
 import { Suspense } from "react";
@@ -8,6 +13,18 @@ const Home = async () => {
         <h1 className="text-20 font-bold text-white-1">Trending Podcasts</h1>
         <Suspense fallback={<TrendingPodcastsSkeleton />}>
           <TrendingPodcastsWrapper />
+        </Suspense>
+      </section>
+      <section className="flex flex-col gap-5">
+        <Header headerTitle={"Latest Podcasts"} titleClassName={"!text-20"} />
+        <Suspense fallback={<LatestPodcastsSkeleton />}>
+          <LatestPodcastsWrapper />
+        </Suspense>
+      </section>
+      <section className="flex flex-col gap-5">
+        <h1 className="text-20 font-bold text-white-1">Popular Podcasts</h1>
+        <Suspense fallback={<PodcastsGridSkeleton />}>
+          <PopularPodcastsGrid />
         </Suspense>
       </section>
     </div>

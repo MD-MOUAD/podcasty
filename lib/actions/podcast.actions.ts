@@ -15,6 +15,7 @@ export const createPodcast = async (
   audioBase64: string,
   imageBase64: string,
   voiceId: string,
+  duration: number,
   path: string
 ): Promise<{ success: boolean; podcastId?: string; error?: string }> => {
   try {
@@ -54,6 +55,7 @@ export const createPodcast = async (
       userId: user._id,
       authorClerkId: user.clerkId,
       voiceId,
+      duration,
     });
 
     await podcast.save();
