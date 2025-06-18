@@ -4,7 +4,7 @@ import React from 'react';
 import PodcastCard from '@/components/PodcastCard';
 
 const PopularPodcastsGrid = async () => {
-  const data = await getTrendingPodcasts(20);
+  const data = await getTrendingPodcasts();
   const popularPodcasts: IPodcast[] = JSON.parse(JSON.stringify(data));
   return (
     <div className="podcast_grid">

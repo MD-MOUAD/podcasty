@@ -5,6 +5,7 @@ import PodcastsGridSkeleton from '@/components/HomePage/PodcastsGridSkeleton';
 import PopularPodcastsGrid from '@/components/HomePage/PopularPodcastsGrid';
 import TrendingPodcastsSkeleton from '@/components/HomePage/TrendingPodcastsSkeleton';
 import TrendingPodcastsWrapper from '@/components/HomePage/TrendingPodcastsWrapper';
+import TopPodcasters from '@/components/RightSidebar/TopPodcasters';
 import { Suspense } from 'react';
 const Home = async () => {
   return (
@@ -33,6 +34,10 @@ const Home = async () => {
         <Suspense fallback={<PodcastsGridSkeleton />}>
           <PopularPodcastsGrid />
         </Suspense>
+      </section>
+      <section className="flex w-full flex-1 flex-col gap-8 max-sm:px-[30px] xl:hidden">
+        <Header headerTitle="Top Podcasters" />
+        <TopPodcasters />
       </section>
     </div>
   );

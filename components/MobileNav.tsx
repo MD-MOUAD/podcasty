@@ -8,11 +8,12 @@ import {
 } from '@/components/ui/sheet';
 import { sidebarLinks } from '@/constants';
 import { cn } from '@/lib/utils';
-import { SignedIn, SignedOut, useClerk } from '@clerk/nextjs';
+import { SignedIn, useClerk } from '@clerk/nextjs';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Button } from './ui/button';
+import UserAvatar from './RightSidebar/UserAvatar';
 
 const MobileNav = () => {
   const pathname = usePathname();
@@ -32,16 +33,10 @@ const MobileNav = () => {
           />
         </SheetTrigger>
         <SheetContent side="left" className="border-none bg-black-1">
-          <Link
-            href="/"
-            className="flex cursor-pointer items-center gap-1 pb-10 pl-4"
-          >
-            <Image src="/icons/logo.svg" alt="logo" width={23} height={27} />
-            <h1 className="text-24 ml-2 font-extrabold text-white-1">
-              Podcasty
-            </h1>
-          </Link>
-          <div className="flex h-[calc(100vh-72px)] flex-col justify-between overflow-y-auto">
+          <div className="mb-32 mt-4">
+            <UserAvatar />
+          </div>
+          <div className="flex h-[50vh] flex-col justify-between overflow-y-auto">
             <SheetClose asChild>
               <nav className="flex h-full flex-col justify-between text-white-1">
                 <div className="flex flex-col gap-6">
@@ -68,17 +63,7 @@ const MobileNav = () => {
                     );
                   })}
                 </div>
-                <div className="mb-12">
-                  <SignedOut>
-                    <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
-                      <Button
-                        asChild
-                        className="text-16 w-full bg-orange-1 font-extrabold"
-                      >
-                        <Link href="/sign-in">Sign in</Link>
-                      </Button>
-                    </div>
-                  </SignedOut>
+                <div className="mb-20">
                   <SignedIn>
                     <div className="flex-center w-full pb-14 max-lg:px-4 lg:pr-8">
                       <Button

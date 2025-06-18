@@ -1,3 +1,4 @@
+'use client';
 import { TopPodcaster } from '@/lib/actions/shared.types';
 import { getTopPodcasters } from '@/lib/actions/user.actions';
 import Image from 'next/image';
